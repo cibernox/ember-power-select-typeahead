@@ -1,3 +1,6 @@
 <h2 id="title">Welcome to Ember</h2>
 
-{{outlet}}
+{{#power-select search=(action 'search') selected=selected onchange=(action (mut selected))
+  selectedComponent='power-select-typeahead/selected' searchEnabled=false as |number|}}
+  {{number}}
+{{/power-select}}
