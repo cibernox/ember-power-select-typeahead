@@ -1,6 +1,10 @@
 <h2 id="title">Welcome to Ember</h2>
-
-{{#power-select search=(action 'search') selected=selected onchange=(action (mut selected))
+<input type="text" placeholder="Just for play with the tab">
+<br>
+<br>
+{{#power-select search=(action 'search') tabindex=-1 selected=selected onchange=(action (mut selected))
   selectedComponent='power-select-typeahead/selected' searchEnabled=false as |number|}}
   {{number}}
 {{/power-select}}
+<br>
+<input type="text" placeholder="Just for play with the tab 2">
