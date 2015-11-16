@@ -1,4 +1,7 @@
-<input type="search" value={{selection}} class="ember-power-select-typeahead-input"
+<input type="text" value={{selection}} class="ember-power-select-typeahead-input"
   oninput={{action "search"}}
   onkeydown={{action "handleKeydown"}}
   onclick={{action "captureClick"}}>
+{{#if hasPendingPromises}}
+  <span class="loading-spinner"></span>
+{{/if}}

@@ -1,10 +1,18 @@
 <h2 id="title">Welcome to Ember</h2>
-<input type="text" placeholder="Just for play with the tab">
-<br>
-<br>
+<p>
+  <input type="text" placeholder="Tab target">
+</p>
+
 {{#power-select search=(action 'search') tabindex=-1 selected=selected onchange=(action (mut selected))
   selectedComponent='power-select-typeahead/selected' searchEnabled=false as |number|}}
   {{number}}
 {{/power-select}}
-<br>
-<input type="text" placeholder="Just for play with the tab 2">
+
+<p>
+  <input type="text" placeholder="Tab target 2">
+</p>
+
+{{#power-select search=(action 'searchAsync') tabindex=-1 selected=selected onchange=(action (mut selected))
+  selectedComponent='power-select-typeahead/selected' loadingMessage=false searchEnabled=false as |number|}}
+  {{number}}
+{{/power-select}}

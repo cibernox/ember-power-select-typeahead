@@ -8,3 +8,24 @@
   border: 1px solid #aaa;
   outline: none;
 }
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  bottom: 0;
+  margin: auto;
+  height: 20px;
+  width: 20px;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0,0,100,100'%3E%3Cpath fill='none' stroke='%231F77BD' stroke-width='7' stroke-miterlimit='10' d='M12.6,77.6C7,70,3.6,60.3,3.6,50,3.6,24.3,24.2,3.5,50,3.5S96.5,24.3,96.5,50c0,5.4-1,10.5-2.6,15.3'/%3E%3C/svg%3E");
+  animation: rotating 0.7s linear infinite;
+}

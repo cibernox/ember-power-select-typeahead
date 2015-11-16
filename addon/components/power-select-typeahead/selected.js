@@ -13,8 +13,8 @@ export default Ember.Component.extend({
 
     search(e) {
       let term = e.target.value;
-      this.get('search')(term, e);
       e.stopPropagation();
+      this.get('search')(term, e);
       if (term.length > 0) {
         this.get('dropdown').open(e);
       } else {

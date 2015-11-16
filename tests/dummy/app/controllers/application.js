@@ -30,6 +30,18 @@ export default Ember.Controller.extend({
   actions: {
     search(term) {
       return numbers.filter(num => num.indexOf(term) > -1);
+    },
+
+    searchAsync(term) {
+      return new Ember.RSVP.Promise(function(resolve) {
+        if (term.length === 0) {
+          resolve([]);
+          return;
+        }
+        Ember.run.later(function() {
+          resolve(numbers.filter(num => num.indexOf(term) > -1));
+        }, 1000);
+      });
     }
   }
 });
