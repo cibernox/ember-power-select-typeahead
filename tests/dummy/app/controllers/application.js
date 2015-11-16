@@ -10,8 +10,19 @@ const numbers = [
   'seven',
   'eight',
   'nine',
-  'ten'
+  'ten',
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen',
+  'seventeen',
+  'eighteen',
+  'nineteen',
+  'twenty'
 ];
+
 
 export default Ember.Controller.extend({
   numbers: numbers,
