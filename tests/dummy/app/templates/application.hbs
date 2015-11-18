@@ -2,8 +2,8 @@
 <p>
   <input type="text" placeholder="Tab target">
 </p>
-{{!--
-{{#power-select search=(action 'search') tabindex=-1 selected=selected onchange=(action (mut selected))
+
+{{!-- {{#power-select search=(action 'search') tabindex=-1 selected=selected onchange=(action (mut selected))
   selectedComponent='power-select-typeahead/selected' searchEnabled=false as |number|}}
   {{number}}
 {{/power-select}}
@@ -17,7 +17,12 @@
   {{number}}
 {{/power-select}} --}}
 
-{{#power-select-typeahead search=(action 'searchAsync') selected=selected onchange=(action (mut selected)) as |number|}}
+{{!-- {{#power-select-typeahead search=(action 'searchAsync') selected=selected onchange=(action (mut selected)) as |number|}}
   {{number}}
+{{/power-select-typeahead}}
+ --}}
+
+{{#power-select-typeahead search=(action 'searchUsersAsync') selected=user onchange=(action (mut user)) extra=(hash labelPath="name") as |user|}}
+  {{user.name}}
 {{/power-select-typeahead}}
 

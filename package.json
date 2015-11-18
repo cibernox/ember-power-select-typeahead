@@ -35,8 +35,9 @@
     "ember-disable-prototype-extensions": "^1.0.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
+    "ember-get-helper": "1.0.4",
     "ember-pagefront": "0.8.2",
-    "ember-power-select": "cibernox/ember-power-select#00c48042b6652a4d337e95b622ce11ed08d47f50",
+    "ember-power-select": "cibernox/ember-power-select#92001c4ca5332063cbe8b10ea69ab1f04d550eb8",
     "ember-try": "~0.0.8"
   },
   "keywords": [

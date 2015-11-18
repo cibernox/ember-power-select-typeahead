@@ -3,7 +3,8 @@
     loadingMessage=loadingMessage noMatchesMessage=noMatchesMessage searchMessage=searchMessage
     selectedComponent=selectedComponent optionsComponent=optionsComponent matcher=matcher
     searchField=searchField renderInPlace=renderInPlace search=search allowClear=allowClear
-    dropdownPosition=dropdownPosition closeOnSelect=closeOnSelect class=class as |option|}}
+    dropdownPosition=dropdownPosition closeOnSelect=closeOnSelect class=class
+    tabindex=tabindex extra=extra as |option|}}
 
-    {{option}}
+    {{yield option}}
 {{/power-select}}

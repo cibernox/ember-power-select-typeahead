@@ -23,9 +23,23 @@ const numbers = [
   'twenty'
 ];
 
+const users = [
+  { name: 'Arthur' },
+  { name: 'Sam' },
+  { name: 'Dan' },
+  { name: 'Miguel' },
+  { name: 'Svilen' },
+  { name: 'Ruslan' },
+  { name: 'Kirill' },
+  { name: 'Stuart' },
+  { name: 'Jamie' },
+  { name: 'Matteo' }
+];
 
 export default Ember.Controller.extend({
   numbers: numbers,
+  users: users,
+  extra: { labelPath: 'name' },
 
   actions: {
     search(term) {
@@ -39,7 +53,19 @@ export default Ember.Controller.extend({
         } else {
           Ember.run.later(function() {
             resolve(numbers.filter(num => num.indexOf(term) > -1));
-          }, 1000);
+          }, 600);
+        }
+      });
+    },
+
+    searchUsersAsync(term) {
+      return new Ember.RSVP.Promise(function(resolve) {
+        if (term.length === 0) {
+          resolve([]);
+        } else {
+          Ember.run.later(function() {
+            resolve(users.filter(u => u.name.indexOf(term) > -1));
+          }, 600);
         }
       });
     }
