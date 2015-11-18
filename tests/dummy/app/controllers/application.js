@@ -36,11 +36,11 @@ export default Ember.Controller.extend({
       return new Ember.RSVP.Promise(function(resolve) {
         if (term.length === 0) {
           resolve([]);
-          return;
+        } else {
+          Ember.run.later(function() {
+            resolve(numbers.filter(num => num.indexOf(term) > -1));
+          }, 1000);
         }
-        Ember.run.later(function() {
-          resolve(numbers.filter(num => num.indexOf(term) > -1));
-        }, 1000);
       });
     }
   }

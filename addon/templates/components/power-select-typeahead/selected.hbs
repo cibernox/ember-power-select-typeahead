@@ -1,5 +1,5 @@
 <input type="text" value={{selection}} class="ember-power-select-typeahead-input"
-  oninput={{action "search"}}
+  oninput={{action "search" value="target.value"}}
   onkeydown={{action "handleKeydown"}}
   onclick={{action "captureClick"}}>
 {{#if hasPendingPromises}}
