@@ -38,6 +38,7 @@
     "ember-export-application-global": "^1.0.4",
     "ember-get-helper": "1.0.4",
     "ember-pagefront": "0.8.2",
+    "ember-power-select": "cibernox/ember-power-select#e7dff44a9dce6331a862de19c5ed093a965865da",
     "ember-try": "~0.0.8"
   },
   "keywords": [
@@ -46,8 +47,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
-    "ember-cli-htmlbars": "^1.0.1",
-    "ember-power-select": "cibernox/ember-power-select#e7dff44a9dce6331a862de19c5ed093a965865da"
+    "ember-cli-htmlbars": "^1.0.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
