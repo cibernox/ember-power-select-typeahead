@@ -29,6 +29,7 @@
     "ember-cli-inject-live-reload": "^1.3.1",
     "ember-cli-qunit": "^1.0.4",
     "ember-cli-release": "0.2.8",
+    "ember-cli-sass": "5.1.0",
     "ember-cli-sri": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-data": "1.13.15",
@@ -37,15 +38,16 @@
     "ember-export-application-global": "^1.0.4",
     "ember-get-helper": "1.0.4",
     "ember-pagefront": "0.8.2",
-    "ember-power-select": "cibernox/ember-power-select#92001c4ca5332063cbe8b10ea69ab1f04d550eb8",
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-power-select-addon"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
-    "ember-cli-htmlbars": "^1.0.1"
+    "ember-cli-htmlbars": "^1.0.1",
+    "ember-power-select": "cibernox/ember-power-select#e7dff44a9dce6331a862de19c5ed093a965865da"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
