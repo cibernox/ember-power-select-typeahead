@@ -7,5 +7,15 @@ export default Ember.Component.extend(defaultOptions, {
   tabindex: -1,
   selectedComponent: 'power-select-typeahead/selected',
   searchEnabled: false,
-  loadingMessage: false
+  loadingMessage: false,
+
+  // CPs
+  concatenatedClasses: Ember.computed('class', function() {
+    const classes = ['ember-power-select-typeahead'];
+    const passedClass = this.get('class');
+    if (passedClass) {
+      classes.push(passedClass);
+    }
+    return classes.join(' ');
+  })
 });
