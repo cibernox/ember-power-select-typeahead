@@ -59,11 +59,14 @@ export default Ember.Controller.extend({
     },
 
     searchUsersAsync(term) {
+      console.debug('searchUsersAsync ' + term);
+      return users.filter(u => u.name.indexOf(term) > -1);
       return new Ember.RSVP.Promise(function(resolve) {
         if (term.length === 0) {
           resolve([]);
         } else {
           Ember.run.later(function() {
+            console.debug('resolve with ', users.filter(u => u.name.indexOf(term) > -1));
             resolve(users.filter(u => u.name.indexOf(term) > -1));
           }, 600);
         }
