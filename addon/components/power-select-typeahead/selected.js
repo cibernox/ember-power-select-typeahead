@@ -10,9 +10,9 @@ export default Ember.Component.extend({
   // Observers
   optionsObserver: Ember.observer('options.length', function() {
     if (this.get('options.length') > 0 && this.get('select.isOpen') === false) {
-      run.scheduleOnce('actions', this.get('select.actions.open'));
+      this.get('select.actions.open');
     } else if (this.get('searchText.length') === 0 && this.get('select.isOpen') === true) {
-      run.scheduleOnce('actions', this.get('select.actions.close'));
+      this.get('select.actions.close');
     }
   }),
 
