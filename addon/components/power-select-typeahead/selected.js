@@ -18,7 +18,18 @@ export default Ember.Component.extend({
     }
   }),
 
-  captureClick(e) {
+  // Computed Properties
+  inputAction: Ember.computed('select.isOpen', function() {
+    if (this.get('select.isOpen')) {
+      return 'focus';
+    } else {
+      return 'blur';
+    }
+  },
+
+  // Events
+  click(e) {
+    this.$()[this.get('inputAction')]();
     e.stopPropagation();
   },
 
