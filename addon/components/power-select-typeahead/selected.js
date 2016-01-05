@@ -28,6 +28,7 @@ export default Ember.Component.extend({
 
   keydown(e) {
     let select = this.get('select');
+    if (!select.isOpen) {
       e.stopPropagation();
       return;
     }
