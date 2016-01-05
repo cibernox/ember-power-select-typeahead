@@ -5,7 +5,9 @@ const { get, run, isBlank } = Ember;
 
 export default Ember.Component.extend({
   layout: layout,
-  tagName: '',
+  tagName: 'input',
+
+  classNames: 'ember-power-select-typeahead-input',
 
   // Observers
   optionsObserver: Ember.observer('options.length', function() {
@@ -16,29 +18,37 @@ export default Ember.Component.extend({
     }
   }),
 
-  // Actions
-  actions: {
-    captureClick(e) {
+  // Computed Properties
+  inputAction: Ember.computed('select.isOpen', function() {
+    if (this.get('select.isOpen')) {
+      return 'focus';
+    } else {
+      return 'blur';
+    }
+  }),
+
+  // Events
+  click(e) {
+    this.$()[this.get('inputAction')]();
+    e.stopPropagation();
+  },
+
+  input(e) {
+    this.get('select.actions.search')(e.target.value);
+  },
+
+  keyDown(e) {
+    let select = this.get('select');
+    if (!select.isOpen) {
       e.stopPropagation();
-    },
-
-    search(term, e) {
-      this.get('select.actions.search')(term, e);
-    },
-
-    handleKeydown(e) {
-      let select = this.get('select');
-      if (!select.isOpen) {
-        e.stopPropagation();
-        return;
-      }
-      let term = e.target.value;
-      if (e.keyCode === 9) {
-        select.actions.select(this.get('highlighted'), e);
-      }
-      if (term.length === 0) {
-        e.stopPropagation();
-      }
+      return;
+    }
+    let term = e.target.value;
+    if (e.keyCode === 9) {
+      select.actions.select(this.get('highlighted'), e);
+    }
+    if (term.length === 0) {
+      e.stopPropagation();
     }
   }
 });
