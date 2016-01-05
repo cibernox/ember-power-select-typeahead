@@ -25,7 +25,7 @@ export default Ember.Component.extend({
     } else {
       return 'blur';
     }
-  },
+  }),
 
   // Events
   click(e) {
