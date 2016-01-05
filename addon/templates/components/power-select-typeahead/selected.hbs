@@ -1,7 +1,3 @@
-<input type="text" value={{if extra.labelPath (get selection extra.labelPath) selection}} class="ember-power-select-typeahead-input"
-  oninput={{action "search" value="target.value"}}
-  onkeydown={{action "handleKeydown"}}
-  onclick={{action "captureClick"}}>
 {{#if options.isPending}}
   <span class="ember-power-select-typeahead-loading-indicator"></span>
 {{/if}}
