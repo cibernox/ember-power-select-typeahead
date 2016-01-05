@@ -33,11 +33,11 @@ export default Ember.Component.extend({
     e.stopPropagation();
   },
 
-  search(term, e) {
+  input(term, e) {
     this.get('select.actions.search')(term, e.target.value);
   },
 
-  keydown(e) {
+  keyDown(e) {
     let select = this.get('select');
     if (!select.isOpen) {
       e.stopPropagation();
