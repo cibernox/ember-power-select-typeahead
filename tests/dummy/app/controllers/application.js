@@ -60,7 +60,7 @@ export default Ember.Controller.extend({
 
     searchUsersAsync(term) {
       console.debug('searchUsersAsync ' + term);
-      return users.filter(u => u.name.indexOf(term) > -1);
+      // return users.filter(u => u.name.indexOf(term) > -1);
       return new Ember.RSVP.Promise(function(resolve) {
         if (term.length === 0) {
           resolve([]);
