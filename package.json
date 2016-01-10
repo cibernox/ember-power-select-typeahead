@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/cibernox/ember-power-select-typeahead",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -52,6 +52,7 @@
     "ember-cli-htmlbars": "^1.0.1"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "https://ember-power-select-typeahead.pagefrontapp.com/"
   }
 }
