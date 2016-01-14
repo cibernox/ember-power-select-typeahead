@@ -4,7 +4,7 @@ import layout from '../templates/components/power-select-typeahead';
 export default Ember.Component.extend({
   layout: layout,
   tabindex: -1,
-  selectedComponent: 'power-select-typeahead/selected',
+  triggerComponent: 'power-select-typeahead/trigger',
   searchEnabled: false,
   loadingMessage: false,
 
