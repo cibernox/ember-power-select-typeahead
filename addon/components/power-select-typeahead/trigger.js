@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../../templates/components/power-select-typeahead/selected';
+import layout from '../../templates/components/power-select-typeahead/trigger';
 
 export default Ember.Component.extend({
   layout: layout,
@@ -31,8 +31,8 @@ export default Ember.Component.extend({
         return;
       }
       let term = e.target.value;
-      if (e.keyCode === 9) {
-        select.actions.select(this.get('highlighted'), e);
+      if (e.keyCode === 9 || e.keyCode === 13) {
+        select.actions.choose(this.get('highlighted'), e);
       }
       if (term.length === 0) {
         e.stopPropagation();
