@@ -18,7 +18,7 @@ export default Ember.Component.extend({
     if (get(options, 'isPending')) {
       if (get(options, 'length') === 0) { select.actions.close(); }
       this._lastSearch = options;
-      options.then((results) => {
+      options.then(() => {
         if (this._lastSearch === options && !this.get('select.isOpen')) {
           select.actions.open();
         }
