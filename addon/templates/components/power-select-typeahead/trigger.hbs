@@ -2,6 +2,6 @@
   oninput={{action "search" value="target.value"}}
   onkeydown={{action "handleKeydown"}}
   onmousedown={{action "captureMouseDown"}}>
-{{#if options.isPending}}
+{{#if loading}}
   <span class="ember-power-select-typeahead-loading-indicator"></span>
 {{/if}}
