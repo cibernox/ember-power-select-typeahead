@@ -14,7 +14,7 @@ export default Ember.Component.extend({
       if (isBlank(newAttrs.lastSearchedText)) {
         run.schedule('actions', null, newAttrs.select.actions.close, null, true);
       } else {
-        run.schedule('actions', null, newAttrs.select.actions.open)
+        run.schedule('actions', null, newAttrs.select.actions.open);
       }
     } else if (!isBlank(newAttrs.lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
       run.schedule('actions', null, newAttrs.select.actions.close, null, true);
