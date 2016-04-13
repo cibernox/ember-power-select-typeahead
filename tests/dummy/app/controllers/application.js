@@ -42,6 +42,13 @@ export default Ember.Controller.extend({
   extra: { labelPath: 'name' },
 
   actions: {
+    skipShortSearches(term, select) {
+      if (term.length <= 2) {
+        select.actions.search('');
+        return false;
+      }
+    },
+
     search(term) {
       return numbers.filter(num => num.indexOf(term) > -1);
     },

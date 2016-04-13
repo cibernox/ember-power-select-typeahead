@@ -26,3 +26,14 @@
   {{user.name}}
 {{/power-select-typeahead}}
 
+<h3>Typeahead with minimum search length stabished to 3 chars</h3>
+
+{{#power-select-typeahead search=(action 'searchUsersAsync')
+  selected=user
+  oninput=(action "skipShortSearches")
+  onchange=(action (mut user))
+  extra=(hash labelPath="name")
+  as |user|}}
+  {{user.name}}
+{{/power-select-typeahead}}
+
