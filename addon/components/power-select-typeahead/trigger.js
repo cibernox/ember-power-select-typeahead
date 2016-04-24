@@ -33,6 +33,13 @@ export default Ember.Component.extend({
       if (isLetter || isSpecialKeyWhileClosed) {
         e.stopPropagation();
       }
+    },
+
+    handleFocus(e) {
+      let action = this.get('onfocus');
+      if (action) {
+        action(this.get('select'), e);
+      }
     }
   }
 });
