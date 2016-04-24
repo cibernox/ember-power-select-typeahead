@@ -2,6 +2,7 @@
   value={{if extra.labelPath (get selected extra.labelPath) selected}}
   class="ember-power-select-typeahead-input"
   oninput={{action handleInput}}
+  onfocus={{action handleFocus}}
   onkeydown={{action "handleKeydown"}}
   onmousedown={{action "stopPropagation"}}>
 {{#if loading}}
