@@ -22,7 +22,6 @@ export default Ember.Component.extend({
      * we remove input text -- so protect against this
      */
     if (oldAttrs.select.isOpen && !newAttrs.select.isOpen && !newAttrs.loading && newAttrs.searchText) {
-      // debugger;
       this.set('text', this.getSelectedAsText());
     }
 
