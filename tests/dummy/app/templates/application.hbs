@@ -1,7 +1,16 @@
-<h2 id="title">Welcome to Ember</h2>
+<h2 id="title">ember-power-select-typeahead</h2>
+
 <p>
   <input type="text" placeholder="Tab target">
 </p>
+
+<h3>Basic - options object of raw strings</h3>
+
+{{#power-select-typeahead options=numbers selected=basicValue onchange=(action (mut basicValue)) as |number|}}
+  {{number}}
+{{/power-select-typeahead}}
+
+<h3>Async source</h3>
 
 {{!-- {{#power-select search=(action 'search') tabindex=-1 selected=selected onchange=(action (mut selected))
   selectedComponent='power-select-typeahead/selected' searchEnabled=false as |number|}}
@@ -22,18 +31,33 @@
 {{/power-select-typeahead}}
  --}}
 
-{{#power-select-typeahead search=(action 'searchUsersAsync') selected=user onchange=(action (mut user)) extra=(hash labelPath="name") as |user|}}
+{{#power-select-typeahead search=(action 'searchUsersAsync') selected=user1 onchange=(action (mut user1)) extra=(hash labelPath="name") as |user|}}
   {{user.name}}
 {{/power-select-typeahead}}
 
-<h3>Typeahead with minimum search length stabished to 3 chars</h3>
+<h3>Typeahead with minimum search length stabished to 3 chars and loading message</h3>
 
-{{#power-select-typeahead search=(action 'searchUsersAsync')
-  selected=user
+{{#power-select-typeahead
+  placeholder="type 3 or more characters"
+  search=(action 'searchUsersAsync')
+  selected=user2
   oninput=(action "skipShortSearches")
-  onchange=(action (mut user))
+  onchange=(action (mut user2))
   extra=(hash labelPath="name")
   as |user|}}
   {{user.name}}
 {{/power-select-typeahead}}
 
+<h3>Typeahead with default options</h3>
+
+{{#power-select-typeahead
+  placeholder="focus to show options"
+  search=(action 'searchUsersAsync')
+  options=defaultOptions
+  showOptions=true
+  selected=user3
+  onchange=(action (mut user3))
+  extra=(hash labelPath="name")
+  as |user|}}
+  {{user.name}}
+{{/power-select-typeahead}}

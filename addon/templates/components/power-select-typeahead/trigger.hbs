@@ -1,9 +1,11 @@
 <input type="search"
   value={{text}}
+  disabled={{select.disabled}}
   class="ember-power-select-typeahead-input ember-power-select-search-input"
   placeholder={{placeholder}}
   oninput={{action "handleInputLocal"}}
-  onfocus={{action handleFocus}}
+  onfocus={{action "onFocus"}}
+  onblur={{action "onBlur"}}
   onkeydown={{action "handleKeydown"}}
   onmousedown={{action "stopPropagation"}}>
 {{#if loading}}

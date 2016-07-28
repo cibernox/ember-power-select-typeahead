@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { numbers, countries } from '../constants';
-import { typeInSearch, nativeMouseUp } from '../../helpers/ember-power-select';
+import { typeInSearch, nativeMouseUp, clickTrigger } from '../../helpers/ember-power-select';
 
 moduleForComponent('power-select-typeahead', 'Integration | Component | power select typeahead', {
   integration: true
@@ -55,4 +55,19 @@ test('Removing a few characters and selecting the same option that is already se
   nativeMouseUp('.ember-power-select-option:eq(0)');
   assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed again');
   assert.equal(this.$('.ember-power-select-search-input').val(), 'Portugal', 'The input contains the selected option');
+});
+
+test('Focusing a typeahead with showOptions=true shows options by default', function(assert) {
+  assert.expect(3);
+  this.countries = countries;
+  this.selected = countries[2];
+  this.render(hbs`
+    {{#power-select-typeahead options=countries selected=selected showOptions=true onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
+      {{country.name}}
+    {{/power-select-typeahead}}
+  `);
+  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  clickTrigger();
+  assert.equal($('.ember-power-select-dropdown').length, 1, 'The component is opened');
+  assert.equal($('.ember-power-select-options').length, 1, 'Options are showing');
 });
