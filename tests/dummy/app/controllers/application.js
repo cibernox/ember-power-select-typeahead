@@ -41,6 +41,8 @@ export default Ember.Controller.extend({
   users: users,
   extra: { labelPath: 'name' },
 
+  defaultOptions: users.slice(0, 4),
+
   actions: {
     skipShortSearches(term, select) {
       if (term.length <= 2) {
@@ -60,7 +62,7 @@ export default Ember.Controller.extend({
         } else {
           Ember.run.later(function() {
             resolve(numbers.filter(num => num.indexOf(term) > -1));
-          }, 600);
+          }, 200);
         }
       });
     },
@@ -72,8 +74,8 @@ export default Ember.Controller.extend({
           resolve([]);
         } else {
           Ember.run.later(function() {
-            resolve(users.filter(u => u.name.indexOf(term) > -1));
-          }, 600);
+            resolve(users.filter(u => u.name.toLowerCase().indexOf(term.toLowerCase()) > -1));
+          }, 200);
         }
       });
     }
