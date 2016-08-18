@@ -1,40 +1,50 @@
 import Ember from 'ember';
 import layout from '../../templates/components/power-select-typeahead/trigger';
 
-const { isBlank, run, get, computed } = Ember;
+const { isBlank, run, computed } = Ember;
 
 export default Ember.Component.extend({
   layout: layout,
   tagName: '',
 
   // CPs
-  text: computed('selected', 'extra.labelPath', {
+  text: computed('select.selected', 'extra.labelPath', {
     get() { return this.getSelectedAsText(); },
     set(_, v) { return v; }
   }),
 
   // Lifecycle hooks
-  didUpdateAttrs({ oldAttrs, newAttrs }) {
+  didReceiveAttrs() {
     this._super(...arguments);
+    let oldSelect = this.get('oldSelect');
+    let newSelect = this.set('oldSelect', this.get('select'));
+    if (!oldSelect) {
+      return;
+    }
     /*
      * We need to update the input field with value of the selected option whenever we're closing
      * the select box. But we also close the select box when we're loading search results and when
      * we remove input text -- so protect against this
      */
-    if (oldAttrs.select.isOpen && !newAttrs.select.isOpen && !newAttrs.loading && newAttrs.searchText) {
-      this.set('text', this.getSelectedAsText());
+    if (oldSelect.isOpen && !newSelect.isOpen && !newSelect.loading && newSelect.searchText) {
+      let input = document.querySelector(`#ember-power-select-typeahead-input-${newSelect.uniqueId}`);
+      let newText = this.getSelectedAsText();
+      if (input.value !== newText) {
+        input.value = newText;
+      }
+      this.set('text', newText);
     }
 
-    if (newAttrs.lastSearchedText !== oldAttrs.lastSearchedText) {
-      if (isBlank(newAttrs.lastSearchedText)) {
-        run.schedule('actions', null, newAttrs.select.actions.close, null, true);
+    if (newSelect.lastSearchedText !== oldSelect.lastSearchedText) {
+      if (isBlank(newSelect.lastSearchedText)) {
+        run.schedule('actions', null, newSelect.actions.close, null, true);
       } else {
-        run.schedule('actions', null, newAttrs.select.actions.open);
+        run.schedule('actions', null, newSelect.actions.open);
       }
-    } else if (!isBlank(newAttrs.lastSearchedText) && get(this, 'options.length') === 0 && this.get('loading')) {
-      run.schedule('actions', null, newAttrs.select.actions.close, null, true);
-    } else if (oldAttrs.loading && !newAttrs.loading && newAttrs.options.length > 0) {
-      run.schedule('actions', null, newAttrs.select.actions.open);
+    } else if (!isBlank(newSelect.lastSearchedText) && newSelect.options.length === 0 && newSelect.loading) {
+      run.schedule('actions', null, newSelect.actions.close, null, true);
+    } else if (oldSelect.loading && !newSelect.loading && newSelect.options.length > 0) {
+      run.schedule('actions', null, newSelect.actions.open);
     }
   },
 
@@ -53,7 +63,7 @@ export default Ember.Component.extend({
     },
 
     handleInputLocal(e) {
-      this.get('handleInput')(e);
+      this.get('onInput')(e);
       this.set('text', e.target.value);
     }
   },
@@ -62,9 +72,9 @@ export default Ember.Component.extend({
   getSelectedAsText() {
     let labelPath = this.get('extra.labelPath');
     if (labelPath) {
-      return this.get('selected.' + labelPath);
+      return this.get('select.selected.' + labelPath);
     } else {
-      return this.get('selected');
+      return this.get('select.selected');
     }
   }
 });
