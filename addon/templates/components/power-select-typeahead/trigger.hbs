@@ -1,11 +1,13 @@
+{{text}}
 <input type="search"
   value={{text}}
+  id="ember-power-select-typeahead-input-{{select.uniqueId}}"
   class="ember-power-select-typeahead-input ember-power-select-search-input"
   placeholder={{placeholder}}
-  oninput={{action "handleInputLocal"}}
-  onfocus={{action handleFocus}}
+  oninput={{onInput}}
+  onfocus={{onFocus}}
   onkeydown={{action "handleKeydown"}}
   onmousedown={{action "stopPropagation"}}>
-{{#if loading}}
+{{#if select.loading}}
   <span class="ember-power-select-typeahead-loading-indicator"></span>
 {{/if}}
