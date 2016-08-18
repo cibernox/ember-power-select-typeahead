@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   layout: layout,
   tabindex: -1,
   triggerComponent: 'power-select-typeahead/trigger',
+  beforeOptionsComponent: null,
   searchEnabled: false,
   loadingMessage: false,
 
