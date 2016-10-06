@@ -2,6 +2,10 @@ import Ember from 'ember';
 import layout from '../templates/components/power-select-typeahead';
 const { computed } = Ember;
 
+function handleTouchEvent(e) {
+  e.stopPropagation();
+}
+
 export default Ember.Component.extend({
   layout: layout,
   tabindex: -1,
@@ -27,5 +31,21 @@ export default Ember.Component.extend({
       classes.push(passedClass);
     }
     return classes.join(' ');
-  })
+  }),
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    let input = this.$('.ember-power-select-typeahead-input').get(0);
+    input.addEventListener('touchstart', handleTouchEvent, false);
+    input.addEventListener('touchend', handleTouchEvent, false);
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    let input = this.$('.ember-power-select-typeahead-input').get(0);
+    input.removeEventListener('touchstart', handleTouchEvent, false);
+    input.removeEventListener('touchend', handleTouchEvent, false);
+  }
 });
