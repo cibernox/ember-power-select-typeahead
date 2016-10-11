@@ -3,6 +3,7 @@ import layout from '../templates/components/power-select-typeahead';
 const { computed } = Ember;
 
 export default Ember.Component.extend({
+  tagName: '',
   layout: layout,
   tabindex: -1,
   triggerComponent: 'power-select-typeahead/trigger',
