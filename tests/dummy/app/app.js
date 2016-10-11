@@ -1,4 +1,3 @@
-/* ember-suave/no-direct-property-access */
 import Ember from 'ember';
 import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
