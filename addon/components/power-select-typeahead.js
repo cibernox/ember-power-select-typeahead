@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import layout from '../templates/components/power-select-typeahead';
-const { computed } = Ember;
+const { Component, computed } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
-  layout: layout,
+  layout,
   tabindex: -1,
   triggerComponent: 'power-select-typeahead/trigger',
   beforeOptionsComponent: null,
@@ -13,8 +13,8 @@ export default Ember.Component.extend({
 
   // CPs
   concatenatedTriggerClasses: computed('triggerClass', function() {
-    const classes = ['ember-power-select-typeahead-trigger'];
-    const passedClass = this.get('triggerClass');
+    let classes = ['ember-power-select-typeahead-trigger'];
+    let passedClass = this.get('triggerClass');
     if (passedClass) {
       classes.push(passedClass);
     }
@@ -22,8 +22,8 @@ export default Ember.Component.extend({
   }),
 
   concatenatedDropdownClasses: computed('dropdownClass', function() {
-    const classes = ['ember-power-select-typeahead-dropdown'];
-    const passedClass = this.get('dropdownClass');
+    let classes = ['ember-power-select-typeahead-dropdown'];
+    let passedClass = this.get('dropdownClass');
     if (passedClass) {
       classes.push(passedClass);
     }

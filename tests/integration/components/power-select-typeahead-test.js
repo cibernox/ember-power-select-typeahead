@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 import { numbers, countries } from '../constants';
 import { typeInSearch, nativeMouseUp } from '../../helpers/ember-power-select';
 
