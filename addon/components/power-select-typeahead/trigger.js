@@ -1,16 +1,20 @@
 import Ember from 'ember';
 import layout from '../../templates/components/power-select-typeahead/trigger';
 
-const { isBlank, run, computed } = Ember;
+const { Component, isBlank, run, computed } = Ember;
 
-export default Ember.Component.extend({
-  layout: layout,
+export default Component.extend({
+  layout,
   tagName: '',
 
   // CPs
   text: computed('select.selected', 'extra.labelPath', {
-    get() { return this.getSelectedAsText(); },
-    set(_, v) { return v; }
+    get() {
+      return this.getSelectedAsText();
+    },
+    set(_, v) {
+      return v;
+    }
   }),
 
   // Lifecycle hooks
@@ -72,7 +76,7 @@ export default Ember.Component.extend({
   getSelectedAsText() {
     let labelPath = this.get('extra.labelPath');
     if (labelPath) {
-      return this.get('select.selected.' + labelPath);
+      return this.get(`select.selected.${labelPath}`);
     } else {
       return this.get('select.selected');
     }

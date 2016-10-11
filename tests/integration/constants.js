@@ -22,12 +22,12 @@ export const numbers = [
 ];
 
 export const names = [
-  "María",
-  "Søren Larsen",
-  "João",
-  "Miguel",
-  "Marta",
-  "Lisa"
+  'María',
+  'Søren Larsen',
+  'João',
+  'Miguel',
+  'Marta',
+  'Lisa'
 ];
 
 export const countries = [
@@ -37,5 +37,5 @@ export const countries = [
   { name: 'Russia',         code: 'RU', population: 146588880 },
   { name: 'Latvia',         code: 'LV', population: 1978300 },
   { name: 'Brazil',         code: 'BR', population: 204921000 },
-  { name: 'United Kingdom', code: 'GB', population: 64596752 },
+  { name: 'United Kingdom', code: 'GB', population: 64596752 }
 ];

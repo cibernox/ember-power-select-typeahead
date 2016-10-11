@@ -1,4 +1,5 @@
 import Ember from 'ember';
+const { Controller, RSVP, run } = Ember;
 
 const numbers = [
   'one',
@@ -36,9 +37,9 @@ const users = [
   { name: 'Matteo' }
 ];
 
-export default Ember.Controller.extend({
-  numbers: numbers,
-  users: users,
+export default Controller.extend({
+  numbers,
+  users,
   extra: { labelPath: 'name' },
 
   actions: {
@@ -50,16 +51,16 @@ export default Ember.Controller.extend({
     },
 
     search(term) {
-      return numbers.filter(num => num.indexOf(term) > -1);
+      return numbers.filter((num) => num.indexOf(term) > -1);
     },
 
     searchAsync(term) {
-      return new Ember.RSVP.Promise(function(resolve) {
+      return new RSVP.Promise(function(resolve) {
         if (term.length === 0) {
           resolve([]);
         } else {
-          Ember.run.later(function() {
-            resolve(numbers.filter(num => num.indexOf(term) > -1));
+          run.later(function() {
+            resolve(numbers.filter((num) => num.indexOf(term) > -1));
           }, 600);
         }
       });
@@ -67,12 +68,12 @@ export default Ember.Controller.extend({
 
     searchUsersAsync(term) {
       // return users.filter(u => u.name.indexOf(term) > -1);
-      return new Ember.RSVP.Promise(function(resolve) {
+      return new RSVP.Promise(function(resolve) {
         if (term.length === 0) {
           resolve([]);
         } else {
-          Ember.run.later(function() {
-            resolve(users.filter(u => u.name.indexOf(term) > -1));
+          run.later(function() {
+            resolve(users.filter((u) => u.name.indexOf(term) > -1));
           }, 600);
         }
       });
