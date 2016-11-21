@@ -13,6 +13,10 @@ $ember-power-select-trigger-default-border-radius: 0;
   width: 100%;
   top: 0;
   bottom: 0;
-  border: 1px solid #aaa;
+  border: $ember-power-select-default-border;
   outline: none;
+
+  & :focus {
+    border: $ember-power-select-default-focus-border;
+  }
 }
