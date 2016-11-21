@@ -2,9 +2,11 @@
   value={{text}}
   id="ember-power-select-typeahead-input-{{select.uniqueId}}"
   class="ember-power-select-typeahead-input ember-power-select-search-input"
+  autocomplete="off"
   placeholder={{placeholder}}
   oninput={{onInput}}
   onfocus={{onFocus}}
+  onblur={{onBlur}}
   onkeydown={{action "handleKeydown"}}
   onmousedown={{action "stopPropagation"}}>
 {{#if select.loading}}

@@ -64,6 +64,11 @@ export default Component.extend({
       if (isLetter || isSpecialKeyWhileClosed) {
         e.stopPropagation();
       }
+
+      let onkeydown = this.get('onKeydown');
+      if (onkeydown && onkeydown(e) === false) {
+        return false;
+      }
     },
 
     handleInputLocal(e) {
