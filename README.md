@@ -22,3 +22,20 @@ With complex objects:
   {{user.name}}
 {{/power-select-typeahead}}
 ```
+
+## Styles
+
+In your app's stylesheet, you must import the built-in styles in this order:
+
+```css
+/*
+your custom variables goes here
+*/
+
+/*if using a theme
+@import 'ember-power-select/themes/material';
+*/
+
+@import 'power-select';
+@import 'ember-power-select-typeahead';
+```
