@@ -59,9 +59,12 @@ export default Component.extend({
     },
 
     handleKeydown(e) {
+      if ([38, 40].indexOf(e.keyCode) > -1 && !this.get('select.isOpen')) {
+        e.stopPropagation();
+        return;
+      }
       let isLetter = e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode === 32; // Keys 0-9, a-z or SPACE
-      let isSpecialKeyWhileClosed = !isLetter && !this.get('select.isOpen') && [13, 27, 38, 40].indexOf(e.keyCode) > -1;
-      if (isLetter || isSpecialKeyWhileClosed) {
+      if (isLetter || [13, 27].indexOf(e.keyCode) > -1) {
         e.stopPropagation();
       }
 
