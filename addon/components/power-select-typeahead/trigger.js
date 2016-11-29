@@ -83,10 +83,15 @@ export default Component.extend({
   // Methods
   getSelectedAsText() {
     let labelPath = this.get('extra.labelPath');
+    let value;
     if (labelPath) {
-      return this.get(`select.selected.${labelPath}`);
+      value = this.get(`select.selected.${labelPath}`);
     } else {
-      return this.get('select.selected');
+      value = this.get('select.selected');
     }
+    if (value === undefined) {
+      value = '';
+    }
+    return value;
   }
 });

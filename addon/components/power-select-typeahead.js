@@ -28,5 +28,17 @@ export default Component.extend({
       classes.push(passedClass);
     }
     return classes.join(' ');
-  })
+  }),
+
+  actions: {
+    onKeyDown(select, e) {
+      let action = this.get('onkeydown');
+
+      if (!action || action(select, e) !== false) {
+        if (e.keyCode === 27) {
+          select.actions.choose(null);
+        }
+      }
+    }
+  }
 });
