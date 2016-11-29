@@ -30,6 +30,10 @@
   {{user.name}}
 {{/power-select-typeahead}}
 
+<p>
+  User is: {{user.name}}
+</p>
+
 <h3>Typeahead with minimum search length stabished to 3 chars</h3>
 
 {{#power-select-typeahead search=(action 'searchUsersAsync')
