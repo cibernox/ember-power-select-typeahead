@@ -22,13 +22,14 @@ export default Component.extend({
     this._super(...arguments);
     let oldSelect = this.get('oldSelect');
     let newSelect = this.set('oldSelect', this.get('select'));
+    let keepOpenOnLoad = this.get('extra.keepOpenOnLoad');
     if (!oldSelect) {
       return;
     }
     /*
      * We need to update the input field with value of the selected option whenever we're closing
-     * the select box. But we also close the select box when we're loading search results and when
-     * we remove input text -- so protect against this
+     * the select box. But we also close the select box when we're loading search results (unless
+     * keepOpenOnLoad is set) and when we remove input text -- so protect against this
      */
     if (oldSelect.isOpen && !newSelect.isOpen && !newSelect.loading && newSelect.searchText) {
       let input = document.querySelector(`#ember-power-select-typeahead-input-${newSelect.uniqueId}`);
@@ -45,7 +46,7 @@ export default Component.extend({
       } else {
         run.schedule('actions', null, newSelect.actions.open);
       }
-    } else if (!isBlank(newSelect.lastSearchedText) && newSelect.options.length === 0 && newSelect.loading) {
+    } else if (!keepOpenOnLoad && !isBlank(newSelect.lastSearchedText) && newSelect.options.length === 0 && newSelect.loading) {
       run.schedule('actions', null, newSelect.actions.close, null, true);
     } else if (oldSelect.loading && !newSelect.loading && newSelect.options.length > 0) {
       run.schedule('actions', null, newSelect.actions.open);

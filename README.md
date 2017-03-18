@@ -23,6 +23,12 @@ With complex objects:
 {{/power-select-typeahead}}
 ```
 
+## Options
+
+To enable the dropdown to stay open in between searches (ie., while the component
+is performing a new search action after input has changed), pass
+`keepOpenOnLoad=true` to the `extra` hash attribute.
+
 ## Styles
 
 In your app's stylesheet, you must import the built-in styles in this order:
