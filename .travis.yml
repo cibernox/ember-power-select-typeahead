@@ -3,14 +3,16 @@ language: node_js
 node_js:
   - "7"
 
+dist: trusty
 sudo: false
 
+addons:
+  apt:
+    packages:
+      - google-chrome-stable
+
 cache:
-  directories:
-    - node_modules
-    - $HOME/.npm
-    - $HOME/.cache # includes bowers cache
-    - $HOME/.yarn-cache
+  yarn: true
 
 env:
   # we recommend testing LTS's and latest stable release (bonus points to beta/canary)
@@ -19,6 +21,7 @@ env:
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
+  - EMBER_TRY_SCENARIO=ember-default
 
 matrix:
   fast_finish: true
@@ -26,16 +29,19 @@ matrix:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
-  - npm config set spin false
-  - npm install -g bower yarn
-  - yarn global add phantomjs-prebuilt
-  - phantomjs --version
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 install:
-  - yarn upgrade
-  - bower install
+  - yarn install --no-lockfile
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to star
 
 script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
