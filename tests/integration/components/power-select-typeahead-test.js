@@ -16,11 +16,11 @@ test('It can select options when options are strings', function(assert) {
       {{number}}
     {{/power-select-typeahead}}
   `);
-  assert.equal(findAll('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('tw');
-  assert.equal(findAll('.ember-power-select-dropdown').length, 1, 'The component is opened');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
   click(findAll('.ember-power-select-option')[1]);
-  assert.equal(findAll('.ember-power-select-dropdown').length, 0, 'The component is closed again');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
   assert.equal(find('.ember-power-select-search-input').value, 'twelve', 'The input contains the selected option');
 });
 
@@ -32,11 +32,11 @@ test('It can select options when options are objects', function(assert) {
       {{country.name}}
     {{/power-select-typeahead}}
   `);
-  assert.equal(findAll('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('tat');
-  assert.equal(findAll('.ember-power-select-dropdown').length, 1, 'The component is opened');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
   click(findAll('.ember-power-select-option')[0]);
-  assert.equal(findAll('.ember-power-select-dropdown').length, 0, 'The component is closed again');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
   assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
 });
 
@@ -49,11 +49,11 @@ test('Removing a few characters and selecting the same option that is already se
       {{country.name}}
     {{/power-select-typeahead}}
   `);
-  assert.equal(findAll('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('Port');
-  assert.equal(findAll('.ember-power-select-dropdown').length, 1, 'The component is opened');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
   assert.equal(find('.ember-power-select-search-input').value, 'Port', 'The input contains the selected option');
   click(findAll('.ember-power-select-option')[0]);
-  assert.equal(findAll('.ember-power-select-dropdown').length, 0, 'The component is closed again');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
   assert.equal(find('.ember-power-select-search-input').value, 'Portugal', 'The input contains the selected option');
 });
