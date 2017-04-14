@@ -1,8 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery';
 import { numbers, countries } from '../constants';
-import { typeInSearch, nativeMouseUp } from '../../helpers/ember-power-select';
+import { typeInSearch } from '../../helpers/ember-power-select';
+import { click, find, findAll } from 'ember-native-dom-helpers';
 
 moduleForComponent('power-select-typeahead', 'Integration | Component | power select typeahead', {
   integration: true
@@ -16,12 +16,12 @@ test('It can select options when options are strings', function(assert) {
       {{number}}
     {{/power-select-typeahead}}
   `);
-  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('tw');
-  assert.equal($('.ember-power-select-dropdown').length, 1, 'The component is opened');
-  nativeMouseUp('.ember-power-select-option:eq(1)');
-  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed again');
-  assert.equal(this.$('.ember-power-select-search-input').val(), 'twelve', 'The input contains the selected option');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  click(findAll('.ember-power-select-option')[1]);
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+  assert.equal(find('.ember-power-select-search-input').value, 'twelve', 'The input contains the selected option');
 });
 
 test('It can select options when options are objects', function(assert) {
@@ -32,12 +32,12 @@ test('It can select options when options are objects', function(assert) {
       {{country.name}}
     {{/power-select-typeahead}}
   `);
-  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('tat');
-  assert.equal($('.ember-power-select-dropdown').length, 1, 'The component is opened');
-  nativeMouseUp('.ember-power-select-option:eq(0)');
-  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed again');
-  assert.equal(this.$('.ember-power-select-search-input').val(), 'United States', 'The input contains the selected option');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  click(findAll('.ember-power-select-option')[0]);
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+  assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
 });
 
 test('Removing a few characters and selecting the same option that is already selected updates the text of the input', function(assert) {
@@ -49,11 +49,11 @@ test('Removing a few characters and selecting the same option that is already se
       {{country.name}}
     {{/power-select-typeahead}}
   `);
-  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('Port');
-  assert.equal($('.ember-power-select-dropdown').length, 1, 'The component is opened');
-  assert.equal(this.$('.ember-power-select-search-input').val(), 'Port', 'The input contains the selected option');
-  nativeMouseUp('.ember-power-select-option:eq(0)');
-  assert.equal($('.ember-power-select-dropdown').length, 0, 'The component is closed again');
-  assert.equal(this.$('.ember-power-select-search-input').val(), 'Portugal', 'The input contains the selected option');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  assert.equal(find('.ember-power-select-search-input').value, 'Port', 'The input contains the selected option');
+  click(findAll('.ember-power-select-option')[0]);
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+  assert.equal(find('.ember-power-select-search-input').value, 'Portugal', 'The input contains the selected option');
 });
