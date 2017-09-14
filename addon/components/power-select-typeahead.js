@@ -34,7 +34,9 @@ export default Component.extend({
     onKeyDown(select, e) {
       let action = this.get('onkeydown');
 
+      // if user passes `onkeydown` action
       if (!action || action(select, e) !== false) {
+        // if escape, then clear out selection
         if (e.keyCode === 27) {
           select.actions.choose(null);
         }
