@@ -3,7 +3,7 @@ const { RSVP, run } = Ember;
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { numbers, countries } from '../constants';
-import { typeInSearch } from '../../helpers/ember-power-select';
+import { typeInSearch, triggerKeydown } from '../../helpers/ember-power-select';
 import { click, find, findAll } from 'ember-native-dom-helpers';
 import wait from 'ember-test-helpers/wait';
 
@@ -62,6 +62,7 @@ test('Removing a few characters and selecting the same option that is already se
 });
 
 test('can search async with loading message', function(assert) {
+  assert.expect(6);
   this.searchCountriesAsync = () => {
     return new RSVP.Promise((resolve) => {
       run.later(() => {
@@ -80,11 +81,10 @@ test('can search async with loading message', function(assert) {
       {{country.name}}
     {{/power-select-typeahead}}
   `);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   typeInSearch('Uni');
-  // TODO: this is failing b/c first load waits to open until options come back
-  // assert.ok(find('.ember-power-select-option--loading-message'), 'The loading message shows');
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is opened');
+  triggerKeydown('.ember-power-select-search-input', 85);
+  assert.ok(find('.ember-power-select-option--loading-message'), 'The loading message shows');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
   return wait().then(() => {
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
@@ -92,4 +92,58 @@ test('can search async with loading message', function(assert) {
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
     assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
   });
+});
+
+test('can search async with no loading message', function(assert) {
+  assert.expect(6);
+  this.searchCountriesAsync = () => {
+    return new RSVP.Promise((resolve) => {
+      run.later(() => {
+        resolve(countries);
+      }, 100);
+    });
+  };
+  this.render(hbs`
+    {{#power-select-typeahead 
+      search=searchCountriesAsync
+      selected=selected 
+      onchange=(action (mut selected)) 
+      extra=(hash labelPath="name") as |country|}}
+      {{country.name}}
+    {{/power-select-typeahead}}
+  `);
+  typeInSearch('Uni');
+  triggerKeydown('.ember-power-select-search-input', 85);
+  assert.notOk(find('.ember-power-select-option--loading-message'), 'No loading message if not configured');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  return wait().then(() => {
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+    assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
+    click(findAll('.ember-power-select-option')[0]);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+    assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
+  });
+});
+
+test('search async with no text will open and then close dropdown', function(assert) {
+  assert.expect(2);
+  this.searchCountriesAsync = () => {
+    return new RSVP.Promise((resolve) => {
+      resolve(countries);
+    });
+  };
+  this.render(hbs`
+    {{#power-select-typeahead 
+      search=searchCountriesAsync
+      selected=selected 
+      onchange=(action (mut selected)) 
+      extra=(hash labelPath="name") as |country|}}
+      {{country.name}}
+    {{/power-select-typeahead}}
+  `);
+  typeInSearch('Uni');
+  triggerKeydown('.ember-power-select-search-input', 85);
+  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  typeInSearch('');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
 });

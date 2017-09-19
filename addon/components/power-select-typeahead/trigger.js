@@ -88,7 +88,10 @@ export default Component.extend({
       let isLetter = e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode === 32; // Keys 0-9, a-z or SPACE
       // if isLetter, escape or enter, prevent parent handlers from being notified
       if (isLetter || [13, 27].indexOf(e.keyCode) > -1) {
-        // TODO: open to show loading message on first keyup.  Otherwise dropdown.content isn't rendered yet to
+        let select = this.get('select');
+        if (!select.isOpen) {
+          run.schedule('actions', null, select.actions.open);
+        }
         // show loading msg
         e.stopPropagation();
       }
