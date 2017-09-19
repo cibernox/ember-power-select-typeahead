@@ -7,9 +7,7 @@ dist: trusty
 sudo: false
 
 addons:
-  apt:
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 cache:
   yarn: true
@@ -34,7 +32,7 @@ before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 install:
-  - yarn install --no-lockfile
+  - yarn install --no-lockfile --non-interactive
 
 before_script:
   - "export DISPLAY=:99.0"
@@ -44,4 +42,4 @@ before_script:
 script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
