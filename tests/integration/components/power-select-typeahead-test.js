@@ -84,7 +84,7 @@ test('can search async with loading message', function(assert) {
   typeInSearch('Uni');
   triggerKeydown('.ember-power-select-search-input', 85);
   assert.equal(find('.ember-power-select-option--loading-message').textContent.trim(), 'searching...', 'The loading message shows');
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component closed while searching');
+  assert.ok(find('.ember-power-select-dropdown'), 'The component closed while searching');
   return wait().then(() => {
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
