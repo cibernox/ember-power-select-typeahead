@@ -84,7 +84,7 @@ test('can search async with loading message', function(assert) {
   typeInSearch('Uni');
   triggerKeydown('.ember-power-select-search-input', 85);
   assert.equal(find('.ember-power-select-option--loading-message').textContent.trim(), 'searching...', 'The loading message shows');
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component closed while searching');
   return wait().then(() => {
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
@@ -115,11 +115,11 @@ test('can search async with no loading message', function(assert) {
   typeInSearch('Uni');
   triggerKeydown('.ember-power-select-search-input', 85);
   assert.notOk(find('.ember-power-select-option--loading-message'), 'No loading message if not configured');
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
 });
 
 test('can search async with noMatchesMessage', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
   this.searchCountriesAsync = () => {
     return new RSVP.Promise((resolve) => {
       run.later(() => {
@@ -140,9 +140,10 @@ test('can search async with noMatchesMessage', function(assert) {
   `);
   typeInSearch('Uniwatttt');
   triggerKeydown('.ember-power-select-search-input', 85);
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
   return wait().then(() => {
     assert.equal(find('.ember-power-select-option--no-matches-message').textContent.trim(), 'no matches homie');
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
   });
 });
 
