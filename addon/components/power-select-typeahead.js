@@ -9,7 +9,7 @@ export default Component.extend({
   triggerComponent: 'power-select-typeahead/trigger',
   beforeOptionsComponent: null,
   searchEnabled: false,
-  loadingMessage: false,
+  loadingMessage: null,
 
   // CPs
   concatenatedTriggerClasses: computed('triggerClass', function() {

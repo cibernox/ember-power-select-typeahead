@@ -40,10 +40,9 @@ export default Component.extend({
     }
     /*
      * We need to update the input field with value of the selected option whenever we're closing
-     * the select box. But we also close the select box when we're loading search results and when
-     * we remove input text -- so protect against this
+     * the select box.
      */
-    if (oldSelect.isOpen && !newSelect.isOpen && !newSelect.loading && newSelect.searchText) {
+    if (oldSelect.isOpen && !newSelect.isOpen && newSelect.searchText) {
       let input = document.querySelector(`#ember-power-select-typeahead-input-${newSelect.uniqueId}`);
       let newText = this.getSelectedAsText();
       if (input.value !== newText) {
@@ -58,12 +57,7 @@ export default Component.extend({
       } else {
         run.schedule('actions', null, newSelect.actions.open);
       }
-    // } else if (!isBlank(newSelect.lastSearchedText) && newSelect.options.length === 0 && newSelect.loading) {
-    //   run.schedule('actions', null, newSelect.actions.close, null, true);
     }
-    // else if (oldSelect.loading && !newSelect.loading && newSelect.options.length > 0) {
-    //   run.schedule('actions', null, newSelect.actions.open);
-    // }
   },
 
   actions: {
@@ -94,6 +88,8 @@ export default Component.extend({
       let isLetter = e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode === 32; // Keys 0-9, a-z or SPACE
       // if isLetter, escape or enter, prevent parent handlers from being notified
       if (isLetter || [13, 27].indexOf(e.keyCode) > -1) {
+        // TODO: open to show loading message on first keyup.  Otherwise dropdown.content isn't rendered yet to
+        // show loading msg
         e.stopPropagation();
       }
 
