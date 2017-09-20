@@ -89,10 +89,10 @@ export default Component.extend({
       // if isLetter, escape or enter, prevent parent handlers from being notified
       if (isLetter || [13, 27].indexOf(e.keyCode) > -1) {
         let select = this.get('select');
+        // open if loading msg configured
         if (!select.isOpen) {
           run.schedule('actions', null, select.actions.open);
         }
-        // show loading msg
         e.stopPropagation();
       }
 

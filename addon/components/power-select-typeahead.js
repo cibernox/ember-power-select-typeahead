@@ -10,6 +10,7 @@ export default Component.extend({
   beforeOptionsComponent: null,
   searchEnabled: false,
   loadingMessage: null,
+  noMatchesMessage: null,
 
   // CPs
   concatenatedTriggerClasses: computed('triggerClass', function() {

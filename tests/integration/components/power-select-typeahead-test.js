@@ -94,7 +94,7 @@ test('can search async with loading message', function(assert) {
   });
 });
 
-test('can search async with no loading message', function(assert) {
+test('search async with no loading message', function(assert) {
   assert.expect(2);
   this.searchCountriesAsync = () => {
     return new RSVP.Promise((resolve) => {
@@ -118,8 +118,8 @@ test('can search async with no loading message', function(assert) {
   assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
 });
 
-test('can search async with noMatchesMessage', function(assert) {
-  assert.expect(3);
+test('search async with noMatchesMessage', function(assert) {
+  assert.expect(1);
   this.searchCountriesAsync = () => {
     return new RSVP.Promise((resolve) => {
       run.later(() => {
@@ -140,10 +140,33 @@ test('can search async with noMatchesMessage', function(assert) {
   `);
   typeInSearch('Uniwatttt');
   triggerKeydown('.ember-power-select-search-input', 85);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
   return wait().then(() => {
     assert.equal(find('.ember-power-select-option--no-matches-message').textContent.trim(), 'no matches homie');
-    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+  });
+});
+
+test('search async without noMatchesMessage', function(assert) {
+  assert.expect(1);
+  this.searchCountriesAsync = () => {
+    return new RSVP.Promise((resolve) => {
+      run.later(() => {
+        resolve([]);
+      }, 100);
+    });
+  };
+  this.render(hbs`
+    {{#power-select-typeahead 
+      search=searchCountriesAsync
+      selected=selected 
+      onchange=(action (mut selected)) 
+      extra=(hash labelPath="name") as |country|}}
+      {{country.name}}
+    {{/power-select-typeahead}}
+  `);
+  typeInSearch('Uniwatttt');
+  triggerKeydown('.ember-power-select-search-input', 85);
+  return wait().then(() => {
+    assert.notOk(find('.ember-power-select-option--no-matches-message'), 'noMatchesMessage is null by default');
   });
 });
 
