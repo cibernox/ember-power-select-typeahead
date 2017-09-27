@@ -4,6 +4,11 @@ Naive implementation of a typeahead component on top of ember-power-select.
 
 [Demo](https://ember-power-select-typeahead.pagefrontapp.com/)
 
+## Installation
+
+```
+ember install ember-power-select-typeahead
+```
 
 ## Usage
 
