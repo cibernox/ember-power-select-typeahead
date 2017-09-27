@@ -11,7 +11,12 @@ module.exports = {
   browser_args: {
     "Chrome": {
       "mode": "ci",
-      "args": [ '--headless', '--disable-gpu', '--remote-debugging-port=9222' ]
+      "args": [ 
+        '--headless', 
+        '--disable-gpu', 
+        '--remote-debugging-port=9222', 
+        '--window-size=1440,900' 
+      ]
     }
   },
 };
