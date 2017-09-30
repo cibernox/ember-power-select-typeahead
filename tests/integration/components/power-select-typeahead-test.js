@@ -95,7 +95,7 @@ test('can search async with loading message', function(assert) {
 });
 
 test('search async with no loading message', function(assert) {
-  assert.expect(2);
+  assert.expect(6);
   this.searchCountriesAsync = () => {
     return new RSVP.Promise((resolve) => {
       run.later(() => {
@@ -116,6 +116,13 @@ test('search async with no loading message', function(assert) {
   triggerKeydown('.ember-power-select-search-input', 85);
   assert.notOk(find('.ember-power-select-option--loading-message'), 'No loading message if not configured');
   assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
+  return wait().then(() => {
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+    assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
+    click(findAll('.ember-power-select-option')[0]);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+    assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
+  });
 });
 
 test('search async with noMatchesMessage', function(assert) {

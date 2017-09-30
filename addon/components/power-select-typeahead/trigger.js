@@ -90,7 +90,7 @@ export default Component.extend({
       if (isLetter || [13, 27].indexOf(e.keyCode) > -1) {
         let select = this.get('select');
         // open if loading msg configured
-        if (!select.isOpen) {
+        if (!select.isOpen && this.get('loadingMessage')) {
           run.schedule('actions', null, select.actions.open);
         }
         e.stopPropagation();
