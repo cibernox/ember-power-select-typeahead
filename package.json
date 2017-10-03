@@ -50,10 +50,9 @@
     "typeahead"
   ],
   "dependencies": {
-    "bower": "^1.8.2",
     "ember-cli-babel": "^6.3.0",
     "ember-cli-htmlbars": "^2.0.1",
-    "ember-power-select": "^1.9.6"
+    "ember-power-select": "^1.9.7"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",

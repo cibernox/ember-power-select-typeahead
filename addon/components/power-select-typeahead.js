@@ -9,7 +9,8 @@ export default Component.extend({
   triggerComponent: 'power-select-typeahead/trigger',
   beforeOptionsComponent: null,
   searchEnabled: false,
-  loadingMessage: false,
+  loadingMessage: null,
+  noMatchesMessage: null,
 
   // CPs
   concatenatedTriggerClasses: computed('triggerClass', function() {
@@ -34,7 +35,9 @@ export default Component.extend({
     onKeyDown(select, e) {
       let action = this.get('onkeydown');
 
+      // if user passes `onkeydown` action
       if (!action || action(select, e) !== false) {
+        // if escape, then clear out selection
         if (e.keyCode === 27) {
           select.actions.choose(null);
         }
