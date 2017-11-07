@@ -72,11 +72,11 @@ test('can search async with loading message', function(assert) {
   };
   this.loadingMessage = 'searching...';
   this.render(hbs`
-    {{#power-select-typeahead 
+    {{#power-select-typeahead
       search=searchCountriesAsync
-      selected=selected 
+      selected=selected
       loadingMessage=loadingMessage
-      onchange=(action (mut selected)) 
+      onchange=(action (mut selected))
       extra=(hash labelPath="name") as |country|}}
       {{country.name}}
     {{/power-select-typeahead}}
@@ -104,10 +104,10 @@ test('search async with no loading message', function(assert) {
     });
   };
   this.render(hbs`
-    {{#power-select-typeahead 
+    {{#power-select-typeahead
       search=searchCountriesAsync
-      selected=selected 
-      onchange=(action (mut selected)) 
+      selected=selected
+      onchange=(action (mut selected))
       extra=(hash labelPath="name") as |country|}}
       {{country.name}}
     {{/power-select-typeahead}}
@@ -136,11 +136,11 @@ test('search async with noMatchesMessage', function(assert) {
   };
   this.noMatchesMessage = 'no matches homie';
   this.render(hbs`
-    {{#power-select-typeahead 
+    {{#power-select-typeahead
       search=searchCountriesAsync
-      selected=selected 
+      selected=selected
       noMatchesMessage=noMatchesMessage
-      onchange=(action (mut selected)) 
+      onchange=(action (mut selected))
       extra=(hash labelPath="name") as |country|}}
       {{country.name}}
     {{/power-select-typeahead}}
@@ -162,10 +162,10 @@ test('search async without noMatchesMessage', function(assert) {
     });
   };
   this.render(hbs`
-    {{#power-select-typeahead 
+    {{#power-select-typeahead
       search=searchCountriesAsync
-      selected=selected 
-      onchange=(action (mut selected)) 
+      selected=selected
+      onchange=(action (mut selected))
       extra=(hash labelPath="name") as |country|}}
       {{country.name}}
     {{/power-select-typeahead}}
@@ -185,10 +185,10 @@ test('search async with no text will open and then close dropdown', function(ass
     });
   };
   this.render(hbs`
-    {{#power-select-typeahead 
+    {{#power-select-typeahead
       search=searchCountriesAsync
-      selected=selected 
-      onchange=(action (mut selected)) 
+      selected=selected
+      onchange=(action (mut selected))
       extra=(hash labelPath="name") as |country|}}
       {{country.name}}
     {{/power-select-typeahead}}
@@ -198,4 +198,15 @@ test('search async with no text will open and then close dropdown', function(ass
   assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
   typeInSearch('');
   assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+});
+
+test('The dropdown doesnt have a "button" role', function(assert) {
+  assert.expect(1);
+  this.numbers = numbers;
+  this.render(hbs`
+    {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
+      {{number}}
+    {{/power-select-typeahead}}
+  `);
+  assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
 });
