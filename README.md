@@ -27,6 +27,8 @@ With complex objects:
   {{user.name}}
 {{/power-select-typeahead}}
 ```
+***Note: See API reference for ember-power-select for additional options you can pass to ember-power-select-typeahead***
+- http://ember-power-select.com/docs/api-reference
 
 ## Styles
 
@@ -41,6 +43,6 @@ your custom variables goes here
 @import 'ember-power-select/themes/material';
 */
 
-@import 'power-select';
+@import 'ember-power-select';
 @import 'ember-power-select-typeahead';
 ```
