@@ -1,5 +1,6 @@
-import Ember from 'ember';
-const { Controller, RSVP, run } = Ember;
+import Controller from '@ember/controller';
+import RSVP from 'rsvp';
+import { run } from '@ember/runloop';
 
 const numbers = [
   'one',
@@ -36,11 +37,12 @@ const users = [
   { name: 'Jamie' },
   { name: 'Matteo' }
 ];
+const extra = { labelPath: 'name' };
 
 export default Controller.extend({
   numbers,
   users,
-  extra: { labelPath: 'name' },
+  extra,
 
   actions: {
     skipShortSearches(term, select) {

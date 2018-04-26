@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { isBlank } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { computed } from '@ember/object';
 import layout from '../../templates/components/power-select-typeahead/trigger';
-
-const { Component, isBlank, run, computed } = Ember;
 
 export default Component.extend({
   layout,
