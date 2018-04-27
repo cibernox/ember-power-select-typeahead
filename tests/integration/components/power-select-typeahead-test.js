@@ -1,5 +1,5 @@
-import Ember from 'ember';
-const { RSVP, run } = Ember;
+import RSVP from 'rsvp';
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { numbers, countries } from '../constants';
