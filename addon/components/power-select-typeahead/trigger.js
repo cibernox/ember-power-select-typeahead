@@ -1,27 +1,12 @@
 import Component from '@ember/component';
 import { isBlank } from '@ember/utils';
 import { run } from '@ember/runloop';
-import { computed } from '@ember/object';
 import layout from '../../templates/components/power-select-typeahead/trigger';
 
 export default Component.extend({
   layout,
   tagName: '',
-
-  /**
-   * value for input
-   *
-   * @private
-   * @property text
-   */
-  text: computed('select.selected', 'extra.labelPath', {
-    get() {
-      return this.getSelectedAsText();
-    },
-    set(_, v) {
-      return v;
-    }
-  }),
+  text: '',
 
   /**
    * Lifecycle Hook
@@ -35,7 +20,6 @@ export default Component.extend({
     this._super(...arguments);
     let oldSelect = this.get('oldSelect');
     let newSelect = this.set('oldSelect', this.get('select'));
-    // if no selection on init
     if (!oldSelect) {
       return;
     }
@@ -58,6 +42,10 @@ export default Component.extend({
       } else {
         run.schedule('actions', null, newSelect.actions.open);
       }
+    }
+
+    if (oldSelect.selected !== newSelect.selected) {
+      this.set('text', this.getSelectedAsText());
     }
   },
 

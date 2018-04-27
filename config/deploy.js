@@ -1,4 +1,4 @@
-module.exports = function(deployTarget) {  
+module.exports = function() {
   return {
     pagefront: {
       app: 'ember-power-select-typeahead',
