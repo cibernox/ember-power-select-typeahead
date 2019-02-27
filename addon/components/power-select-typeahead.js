@@ -11,6 +11,7 @@ export default Component.extend({
   searchEnabled: false,
   loadingMessage: null,
   noMatchesMessage: null,
+  onkeydown: () => {},
 
   // CPs
   concatenatedTriggerClasses: computed('triggerClass', function() {
