@@ -37,7 +37,7 @@ export default Component.extend({
       let action = this.get('onkeydown');
 
       // if user passes `onkeydown` action
-      if (action || action(select, e) === false) {
+      if (action && action(select, e) === false) {
         return false;
       } else {
         // if escape, then clear out selection
