@@ -6,6 +6,11 @@ Naive implementation of a typeahead component on top of ember-power-select.
 
 ## Installation
 
+**Requires ember-power-select v2.0+!**
+
+For ember-power-select v1.x use [v.6.1](https://github.com/cibernox/ember-power-select-typeahead/tree/v0.6.1)
+
+
 ```
 ember install ember-power-select-typeahead
 ```
