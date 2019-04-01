@@ -1,212 +1,209 @@
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
 import { run } from '@ember/runloop';
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { click, find, findAll, render, settled, waitFor } from '@ember/test-helpers';
+import { typeInSearch, triggerKeydown } from 'ember-power-select/test-support/helpers';
 import { numbers, countries } from '../constants';
-import { typeInSearch, triggerKeydown } from '../../helpers/ember-power-select';
-import { click, find, findAll } from 'ember-native-dom-helpers';
-import wait from 'ember-test-helpers/wait';
 
-moduleForComponent('power-select-typeahead', 'Integration | Component | power select typeahead', {
-  integration: true
-});
+module('Integration | Component | power select typeahead', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('It can select options when options are strings', function(assert) {
-  assert.expect(4);
-  this.numbers = numbers;
-  this.render(hbs`
-    {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
-      {{number}}
-    {{/power-select-typeahead}}
-  `);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
-  typeInSearch('tw');
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-  click(findAll('.ember-power-select-option')[1]);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-  assert.equal(find('.ember-power-select-search-input').value, 'twelve', 'The input contains the selected option');
-});
-
-test('It can select options when options are objects', function(assert) {
-  assert.expect(4);
-  this.countries = countries;
-  this.render(hbs`
-    {{#power-select-typeahead options=countries selected=selected onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
-  typeInSearch('tat');
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-  click(findAll('.ember-power-select-option')[0]);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-  assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
-});
-
-test('Removing a few characters and selecting the same option that is already selected updates the text of the input', function(assert) {
-  assert.expect(5);
-  this.countries = countries;
-  this.selected = countries[2];
-  this.render(hbs`
-    {{#power-select-typeahead options=countries selected=selected onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
-  typeInSearch('Port');
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-  assert.equal(find('.ember-power-select-search-input').value, 'Port', 'The input contains the selected option');
-  click(findAll('.ember-power-select-option')[0]);
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-  assert.equal(find('.ember-power-select-search-input').value, 'Portugal', 'The input contains the selected option');
-});
-
-test('can search async with loading message', function(assert) {
-  assert.expect(6);
-  this.searchCountriesAsync = () => {
-    return new RSVP.Promise((resolve) => {
-      run.later(() => {
-        resolve(countries);
-      }, 100);
-    });
-  };
-  this.loadingMessage = 'searching...';
-  this.render(hbs`
-    {{#power-select-typeahead
-      search=searchCountriesAsync
-      selected=selected
-      loadingMessage=loadingMessage
-      onchange=(action (mut selected))
-      extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  typeInSearch('Uni');
-  triggerKeydown('.ember-power-select-search-input', 85);
-  assert.equal(find('.ember-power-select-option--loading-message').textContent.trim(), 'searching...', 'The loading message shows');
-  assert.ok(find('.ember-power-select-dropdown'), 'The component closed while searching');
-  return wait().then(() => {
+  test('It can select options when options are strings', async function(assert) {
+    assert.expect(4);
+    this.numbers = numbers;
+    await render(hbs`
+      {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
+        {{number}}
+      {{/power-select-typeahead}}
+    `);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    await typeInSearch('tw');
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-    assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
-    click(findAll('.ember-power-select-option')[0]);
+    await click(findAll('.ember-power-select-option')[1]);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+    assert.equal(find('.ember-power-select-search-input').value, 'twelve', 'The input contains the selected option');
+  });
+
+  test('It can select options when options are objects', async function(assert) {
+    assert.expect(4);
+    this.countries = countries;
+    await render(hbs`
+      {{#power-select-typeahead options=countries selected=selected onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    await typeInSearch('tat');
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+    await click(findAll('.ember-power-select-option')[0]);
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
     assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
   });
-});
 
-test('search async with no loading message', function(assert) {
-  assert.expect(6);
-  this.searchCountriesAsync = () => {
-    return new RSVP.Promise((resolve) => {
-      run.later(() => {
-        resolve(countries);
-      }, 100);
-    });
-  };
-  this.render(hbs`
-    {{#power-select-typeahead
-      search=searchCountriesAsync
-      selected=selected
-      onchange=(action (mut selected))
-      extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  typeInSearch('Uni');
-  triggerKeydown('.ember-power-select-search-input', 85);
-  assert.notOk(find('.ember-power-select-option--loading-message'), 'No loading message if not configured');
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
-  return wait().then(() => {
+  test('Removing a few characters and selecting the same option that is already selected updates the text of the input', async function(assert) {
+    assert.expect(5);
+    this.countries = countries;
+    this.selected = countries[2];
+    await render(hbs`
+      {{#power-select-typeahead options=countries selected=selected onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    await typeInSearch('Port');
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+    assert.equal(find('.ember-power-select-search-input').value, 'Port', 'The input contains the selected option');
+    await click(findAll('.ember-power-select-option')[0]);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+    assert.equal(find('.ember-power-select-search-input').value, 'Portugal', 'The input contains the selected option');
+  });
+
+  test('can search async with loading message', async function(assert) {
+    assert.expect(6);
+    this.searchCountriesAsync = () => {
+      return new RSVP.Promise((resolve) => {
+        run.later(() => {
+          resolve(countries);
+        }, 100);
+      });
+    };
+    this.loadingMessage = 'searching...';
+    await render(hbs`
+      {{#power-select-typeahead
+        search=searchCountriesAsync
+        selected=selected
+        loadingMessage=loadingMessage
+        onchange=(action (mut selected))
+        extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    typeInSearch('Uni');
+    triggerKeydown('.ember-power-select-search-input', 85);
+    await waitFor('.ember-power-select-option--loading-message');
+    assert.equal(find('.ember-power-select-option--loading-message').textContent.trim(), this.loadingMessage, 'The loading message shows');
+    assert.ok(find('.ember-power-select-dropdown'), 'The component open while searching');
+    await settled();
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
-    click(findAll('.ember-power-select-option')[0]);
+    await click(findAll('.ember-power-select-option')[0]);
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
     assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
   });
-});
 
-test('search async with noMatchesMessage', function(assert) {
-  assert.expect(1);
-  this.searchCountriesAsync = () => {
-    return new RSVP.Promise((resolve) => {
-      run.later(() => {
-        resolve([]);
-      }, 100);
-    });
-  };
-  this.noMatchesMessage = 'no matches homie';
-  this.render(hbs`
-    {{#power-select-typeahead
-      search=searchCountriesAsync
-      selected=selected
-      noMatchesMessage=noMatchesMessage
-      onchange=(action (mut selected))
-      extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  typeInSearch('Uniwatttt');
-  triggerKeydown('.ember-power-select-search-input', 85);
-  return wait().then(() => {
+  test('search async with no loading message', async function(assert) {
+    assert.expect(6);
+    this.searchCountriesAsync = () => {
+      return new RSVP.Promise((resolve) => {
+        run.later(() => {
+          resolve(countries);
+        }, 100);
+      });
+    };
+    await render(hbs`
+      {{#power-select-typeahead
+        search=searchCountriesAsync
+        selected=selected
+        onchange=(action (mut selected))
+        extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    typeInSearch('Uni');
+    triggerKeydown('.ember-power-select-search-input', 85);
+    assert.notOk(find('.ember-power-select-option--loading-message'), 'No loading message if not configured');
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
+    await settled();
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+    assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
+    await click(findAll('.ember-power-select-option')[0]);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
+    assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
+  });
+
+  test('search async with noMatchesMessage', async function(assert) {
+    assert.expect(1);
+    this.searchCountriesAsync = () => {
+      return new RSVP.Promise((resolve) => {
+        run.later(() => {
+          resolve([]);
+        }, 100);
+      });
+    };
+    this.noMatchesMessage = 'no matches homie';
+    await render(hbs`
+      {{#power-select-typeahead
+        search=searchCountriesAsync
+        selected=selected
+        noMatchesMessage=noMatchesMessage
+        onchange=(action (mut selected))
+        extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    typeInSearch('Uniwatttt');
+    triggerKeydown('.ember-power-select-search-input', 85);
+    await settled();
     assert.equal(find('.ember-power-select-option--no-matches-message').textContent.trim(), 'no matches homie');
   });
-});
 
-test('search async without noMatchesMessage', function(assert) {
-  assert.expect(1);
-  this.searchCountriesAsync = () => {
-    return new RSVP.Promise((resolve) => {
-      run.later(() => {
-        resolve([]);
-      }, 100);
-    });
-  };
-  this.render(hbs`
-    {{#power-select-typeahead
-      search=searchCountriesAsync
-      selected=selected
-      onchange=(action (mut selected))
-      extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  typeInSearch('Uniwatttt');
-  triggerKeydown('.ember-power-select-search-input', 85);
-  return wait().then(() => {
+  test('search async without noMatchesMessage', async function(assert) {
+    assert.expect(1);
+    this.searchCountriesAsync = () => {
+      return new RSVP.Promise((resolve) => {
+        run.later(() => {
+          resolve([]);
+        }, 100);
+      });
+    };
+    await render(hbs`
+      {{#power-select-typeahead
+        search=searchCountriesAsync
+        selected=selected
+        onchange=(action (mut selected))
+        extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    typeInSearch('Uniwatttt');
+    triggerKeydown('.ember-power-select-search-input', 85);
+    await settled();
     assert.notOk(find('.ember-power-select-option--no-matches-message'), 'noMatchesMessage is null by default');
   });
-});
 
-test('search async with no text will open and then close dropdown', function(assert) {
-  assert.expect(2);
-  this.searchCountriesAsync = () => {
-    return new RSVP.Promise((resolve) => {
-      resolve(countries);
-    });
-  };
-  this.render(hbs`
-    {{#power-select-typeahead
-      search=searchCountriesAsync
-      selected=selected
-      onchange=(action (mut selected))
-      extra=(hash labelPath="name") as |country|}}
-      {{country.name}}
-    {{/power-select-typeahead}}
-  `);
-  typeInSearch('Uni');
-  triggerKeydown('.ember-power-select-search-input', 85);
-  assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-  typeInSearch('');
-  assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
-});
+  test('search async with no text will open and then close dropdown', async function(assert) {
+    assert.expect(2);
+    this.searchCountriesAsync = () => {
+      return new RSVP.Promise((resolve) => {
+        resolve(countries);
+      });
+    };
+    await render(hbs`
+      {{#power-select-typeahead
+        search=searchCountriesAsync
+        selected=selected
+        onchange=(action (mut selected))
+        extra=(hash labelPath="name") as |country|}}
+        {{country.name}}
+      {{/power-select-typeahead}}
+    `);
+    typeInSearch('Uni');
+    await triggerKeydown('.ember-power-select-search-input', 85);
+    assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
+    await typeInSearch('');
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+  });
 
-test('The dropdown doesnt have a "button" role', function(assert) {
-  assert.expect(1);
-  this.numbers = numbers;
-  this.render(hbs`
-    {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
-      {{number}}
-    {{/power-select-typeahead}}
-  `);
-  assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
+  test('The dropdown doesnt have a "button" role', async function(assert) {
+    assert.expect(1);
+    this.numbers = numbers;
+    await render(hbs`
+      {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
+        {{number}}
+      {{/power-select-typeahead}}
+    `);
+    assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
+  });
 });
