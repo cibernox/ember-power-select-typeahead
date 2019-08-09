@@ -8,7 +8,6 @@ export default Component.extend({
   tabindex: -1,
   triggerComponent: 'power-select-typeahead/trigger',
   beforeOptionsComponent: null,
-  searchEnabled: false,
   loadingMessage: null,
   noMatchesMessage: null,
   onkeydown: () => {},
