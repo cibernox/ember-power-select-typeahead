@@ -2,7 +2,17 @@
 
 Naive implementation of a typeahead component on top of ember-power-select.
 
-[Demo](https://ember-power-select-typeahead.pagefrontapp.com/)
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v3.4 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
+
+Installation
+------------------------------------------------------------------------------
 
 ## Installation
 
@@ -39,9 +49,14 @@ In your app's stylesheet, you must import the built-in styles in this order:
 your custom variables goes here
 */
 
-/*if using a theme
-@import 'ember-power-select/themes/material';
-*/
+Contributing
+------------------------------------------------------------------------------
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+
+License
+------------------------------------------------------------------------------
 
 @import 'ember-power-select';
 @import 'ember-power-select-typeahead';
