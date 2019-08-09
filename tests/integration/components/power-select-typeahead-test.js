@@ -7,16 +7,16 @@ import { click, find, findAll, render, settled, waitFor } from '@ember/test-help
 import { typeInSearch, triggerKeydown } from 'ember-power-select/test-support/helpers';
 import { numbers, countries } from '../constants';
 
-module('Integration | Component | power select typeahead', function(hooks) {
+module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
   setupRenderingTest(hooks);
 
   test('It can select options when options are strings', async function(assert) {
     assert.expect(4);
     this.numbers = numbers;
     await render(hbs`
-      {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
+      <PowerSelectTypeahead @options={{numbers}} @selected={{selected}} @onChange={{action (mut selected)}} as |number|>
         {{number}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
     await typeInSearch('tw');
@@ -30,9 +30,9 @@ module('Integration | Component | power select typeahead', function(hooks) {
     assert.expect(4);
     this.countries = countries;
     await render(hbs`
-      {{#power-select-typeahead options=countries selected=selected onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead @options={{countries}} @selected={{selected}} @onChange={{action (mut selected)}} @searchField="name" @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
     await typeInSearch('tat');
@@ -47,9 +47,9 @@ module('Integration | Component | power select typeahead', function(hooks) {
     this.countries = countries;
     this.selected = countries[2];
     await render(hbs`
-      {{#power-select-typeahead options=countries selected=selected onchange=(action (mut selected)) searchField="name" extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead @options={{countries}} @selected={{selected}} @onChange={{action (mut selected)}} @searchField="name" @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
     await typeInSearch('Port');
@@ -71,14 +71,14 @@ module('Integration | Component | power select typeahead', function(hooks) {
     };
     this.loadingMessage = 'searching...';
     await render(hbs`
-      {{#power-select-typeahead
-        search=searchCountriesAsync
-        selected=selected
-        loadingMessage=loadingMessage
-        onchange=(action (mut selected))
-        extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead
+        @search={{searchCountriesAsync}}
+        @selected={{selected}}
+        @loadingMessage={{loadingMessage}}
+        @onChange={{action (mut selected)}}
+        @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     typeInSearch('Uni');
     triggerKeydown('.ember-power-select-search-input', 85);
@@ -103,13 +103,13 @@ module('Integration | Component | power select typeahead', function(hooks) {
       });
     };
     await render(hbs`
-      {{#power-select-typeahead
-        search=searchCountriesAsync
-        selected=selected
-        onchange=(action (mut selected))
-        extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead
+        @search={{searchCountriesAsync}}
+        @selected={{selected}}
+        @onChange={{action (mut selected)}}
+        @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     typeInSearch('Uni');
     triggerKeydown('.ember-power-select-search-input', 85);
@@ -134,14 +134,14 @@ module('Integration | Component | power select typeahead', function(hooks) {
     };
     this.noMatchesMessage = 'no matches homie';
     await render(hbs`
-      {{#power-select-typeahead
-        search=searchCountriesAsync
-        selected=selected
-        noMatchesMessage=noMatchesMessage
-        onchange=(action (mut selected))
-        extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead
+        @search={{searchCountriesAsync}}
+        @selected={{selected}}
+        @noMatchesMessage={{noMatchesMessage}}
+        @onChange={{action (mut selected)}}
+        @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     typeInSearch('Uniwatttt');
     triggerKeydown('.ember-power-select-search-input', 85);
@@ -159,13 +159,13 @@ module('Integration | Component | power select typeahead', function(hooks) {
       });
     };
     await render(hbs`
-      {{#power-select-typeahead
-        search=searchCountriesAsync
-        selected=selected
-        onchange=(action (mut selected))
-        extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead
+        @search={{searchCountriesAsync}}
+        @selected={{selected}}
+        @onChange={{action (mut selected)}}
+        @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     typeInSearch('Uniwatttt');
     triggerKeydown('.ember-power-select-search-input', 85);
@@ -181,13 +181,13 @@ module('Integration | Component | power select typeahead', function(hooks) {
       });
     };
     await render(hbs`
-      {{#power-select-typeahead
-        search=searchCountriesAsync
-        selected=selected
-        onchange=(action (mut selected))
-        extra=(hash labelPath="name") as |country|}}
+      <PowerSelectTypeahead
+        @search={{searchCountriesAsync}}
+        @selected={{selected}}
+        @onChange={{action (mut selected)}}
+        @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     typeInSearch('Uni');
     await triggerKeydown('.ember-power-select-search-input', 85);
@@ -200,9 +200,12 @@ module('Integration | Component | power select typeahead', function(hooks) {
     assert.expect(1);
     this.numbers = numbers;
     await render(hbs`
-      {{#power-select-typeahead options=numbers selected=selected onchange=(action (mut selected)) as |number|}}
+      <PowerSelectTypeahead
+        @options={{numbers}}
+        @selected={{selected}}
+        @onChange={{action (mut selected)}} as |number|>
         {{number}}
-      {{/power-select-typeahead}}
+      </PowerSelectTypeahead>
     `);
     assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
   });
