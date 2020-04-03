@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-var-requires,@typescript-eslint/explicit-function-return-type */
 'use strict';
 
 const getChannelURL = require('ember-source-channel-url');
 
 module.exports = async function() {
   return {
+    useYarn: true,
     scenarios: [
       {
-        name: 'ember-3.11',
+        name: 'ember-lts-3.16',
         npm: {
           devDependencies: {
-            'ember-source': '~3.11.1'
+            'ember-source': '~3.16.0'
           }
         }
       },
@@ -53,11 +55,6 @@ module.exports = async function() {
           EMBER_OPTIONAL_FEATURES: JSON.stringify({
             'jquery-integration': true
           })
-        },
-        npm: {
-          devDependencies: {
-            '@ember/jquery': '^0.5.1'
-          }
         }
       }
     ]

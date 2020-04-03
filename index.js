@@ -1,12 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use strict';
 
 module.exports = {
-  name: 'ember-power-select-typeahead',
+  name: require('./package').name,
 
-  contentFor: function(type, config) {
-    var emberPowerSelect = this.addons.filter(function(addon) {
-      return addon.name === 'ember-power-select';
-    })[0]
+  contentFor(type, config) {
+    const emberPowerSelect = this.addons.find(addon => addon.name === 'ember-power-select');
     return emberPowerSelect.contentFor(type, config);
   }
 };

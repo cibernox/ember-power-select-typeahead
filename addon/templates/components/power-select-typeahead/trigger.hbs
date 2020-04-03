@@ -1,19 +1,20 @@
-<input type="search"
-  value={{text}}
-  role="combobox"
-  id="ember-power-select-typeahead-input-{{select.uniqueId}}"
-  class="ember-power-select-typeahead-input ember-power-select-search-input"
-  autocomplete="off"
-  autocorrect="off"
-  autocapitalize="off"
-  spellcheck="false"  
-  placeholder={{placeholder}}
-  oninput={{onInput}}
-  onfocus={{onFocus}}
-  onblur={{onBlur}}
-  disabled={{select.disabled}}
-  onkeydown={{action "handleKeydown"}}
-  onmousedown={{action "stopPropagation"}}>
-{{#if select.loading}}
+<input {{did-update this.updatePublicApi @select @extra}}
+        {{on "mousedown" this.stopPropagation}}
+        {{on "keydown" this.handleKeydown}}
+        {{on "input" @onInput}}
+        {{on "focus" @onFocus}}
+        {{on "blur" @onBlur}}
+        type="search"
+        value={{this.text}}
+        role="combobox"
+        id="ember-power-select-typeahead-input-{{@select.uniqueId}}"
+        class="ember-power-select-typeahead-input ember-power-select-search-input"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        placeholder={{@placeholder}}
+        disabled={{@select.disabled}}>
+{{#if @select.loading}}
   <span class="ember-power-select-typeahead-loading-indicator"></span>
 {{/if}}
