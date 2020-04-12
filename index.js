@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use strict';
 
 module.exports = {
+  // eslint-disable-next-line node/no-unpublished-require
   name: require('./package').name,
 
   contentFor(type, config) {

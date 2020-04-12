@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 'use strict';
 
 module.exports = {
@@ -25,11 +24,20 @@ module.exports = {
     'browser': true
   },
   rules: {
-    'quotes': ['error', 'single'],
     'ember/no-jquery': 'error',
+    'quotes': 'off', // note you must disable the base rule as it can report incorrect errors
+    'no-unused-vars': 'off', // note you must disable the base rule as it can report incorrect errors
+    '@typescript-eslint/quotes': ['error', 'single'],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', {'argsIgnorePattern': '^_'}],
+  },
+  settings: {
+    node: {
+      // Honor both extensions when enforcing e.g. `node/no-missing-require`
+      tryExtensions: ['.js', '.ts'],
+    },
   },
   overrides: [
     // node files
@@ -59,7 +67,10 @@ module.exports = {
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
+        'node/no-missing-require': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
       })
-    }
+    },
   ]
 };

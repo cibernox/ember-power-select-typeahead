@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires,@typescript-eslint/explicit-function-return-type */
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
