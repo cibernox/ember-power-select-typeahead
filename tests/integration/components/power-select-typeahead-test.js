@@ -207,6 +207,6 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
         {{number}}
       </PowerSelectTypeahead>
     `);
-    assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
+    assert.equal(find('.ember-power-select-trigger').getAttribute('role'), 'none', 'The trigger does not have button role');
   });
 });
