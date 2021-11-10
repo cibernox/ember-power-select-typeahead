@@ -195,18 +195,4 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     await typeInSearch('');
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   });
-
-  test('The dropdown doesnt have a "button" role', async function(assert) {
-    assert.expect(1);
-    this.numbers = numbers;
-    await render(hbs`
-      <PowerSelectTypeahead
-        @options={{numbers}}
-        @selected={{selected}}
-        @onChange={{action (mut selected)}} as |number|>
-        {{number}}
-      </PowerSelectTypeahead>
-    `);
-    assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
-  });
 });
