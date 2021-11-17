@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { isBlank } from '@ember/utils';
-import { run } from '@ember/runloop';
+import { schedule } from '@ember/runloop';
 import layout from '../../templates/components/power-select-typeahead/trigger';
 
 export default Component.extend({
@@ -38,9 +38,9 @@ export default Component.extend({
 
     if (newSelect.lastSearchedText !== oldSelect.lastSearchedText) {
       if (isBlank(newSelect.lastSearchedText)) {
-        run.schedule('actions', null, newSelect.actions.close, null, true);
+        schedule('actions', null, newSelect.actions.close, null, true);
       } else {
-        run.schedule('actions', null, newSelect.actions.open);
+        schedule('actions', null, newSelect.actions.open);
       }
     }
 
@@ -80,7 +80,7 @@ export default Component.extend({
         let select = this.get('select');
         // open if loading msg configured
         if (!select.isOpen && this.get('loadingMessage')) {
-          run.schedule('actions', null, select.actions.open);
+          schedule('actions', null, select.actions.open);
         }
         e.stopPropagation();
       }
