@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
+import { later } from '@ember/runloop';
 
 const numbers = [
   'one',
@@ -61,7 +61,7 @@ export default Controller.extend({
         if (term.length === 0) {
           resolve([]);
         } else {
-          run.later(function() {
+          later(function() {
             resolve(numbers.filter((num) => num.indexOf(term) > -1));
           }, 600);
         }
@@ -74,7 +74,7 @@ export default Controller.extend({
         if (term.length === 0) {
           resolve([]);
         } else {
-          run.later(function() {
+          later(function() {
             resolve(users.filter((u) => u.name.indexOf(term) > -1));
           }, 600);
         }

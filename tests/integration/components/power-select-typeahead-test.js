@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
+import { later } from '@ember/runloop';
 import { click, find, findAll, render, settled, waitFor } from '@ember/test-helpers';
 import { typeInSearch, triggerKeydown } from 'ember-power-select/test-support/helpers';
 import { numbers, countries } from '../constants';
@@ -64,7 +64,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.expect(6);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
-        run.later(() => {
+        later(() => {
           resolve(countries);
         }, 100);
       });
@@ -97,7 +97,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.expect(6);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
-        run.later(() => {
+        later(() => {
           resolve(countries);
         }, 100);
       });
@@ -127,7 +127,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.expect(1);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
-        run.later(() => {
+        later(() => {
           resolve([]);
         }, 100);
       });
@@ -153,7 +153,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.expect(1);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
-        run.later(() => {
+        later(() => {
           resolve([]);
         }, 100);
       });
