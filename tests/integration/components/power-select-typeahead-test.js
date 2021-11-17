@@ -14,7 +14,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.expect(4);
     this.numbers = numbers;
     await render(hbs`
-      <PowerSelectTypeahead @options={{numbers}} @selected={{selected}} @onChange={{action (mut selected)}} as |number|>
+      <PowerSelectTypeahead @options={{this.numbers}} @selected={{this.selected}} @onChange={{action (mut this.selected)}} as |number|>
         {{number}}
       </PowerSelectTypeahead>
     `);
@@ -30,7 +30,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.expect(4);
     this.countries = countries;
     await render(hbs`
-      <PowerSelectTypeahead @options={{countries}} @selected={{selected}} @onChange={{action (mut selected)}} @searchField="name" @extra={{hash labelPath="name"}} as |country|>
+      <PowerSelectTypeahead @options={{this.countries}} @selected={{this.selected}} @onChange={{action (mut this.selected)}} @searchField="name" @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
     `);
@@ -47,7 +47,7 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     this.countries = countries;
     this.selected = countries[2];
     await render(hbs`
-      <PowerSelectTypeahead @options={{countries}} @selected={{selected}} @onChange={{action (mut selected)}} @searchField="name" @extra={{hash labelPath="name"}} as |country|>
+      <PowerSelectTypeahead @options={{this.countries}} @selected={{this.selected}} @onChange={{action (mut this.selected)}} @searchField="name" @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
     `);
@@ -72,10 +72,10 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     this.loadingMessage = 'searching...';
     await render(hbs`
       <PowerSelectTypeahead
-        @search={{searchCountriesAsync}}
-        @selected={{selected}}
-        @loadingMessage={{loadingMessage}}
-        @onChange={{action (mut selected)}}
+        @search={{this.searchCountriesAsync}}
+        @selected={{this.selected}}
+        @loadingMessage={{this.loadingMessage}}
+        @onChange={{action (mut this.selected)}}
         @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
@@ -104,9 +104,9 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     };
     await render(hbs`
       <PowerSelectTypeahead
-        @search={{searchCountriesAsync}}
-        @selected={{selected}}
-        @onChange={{action (mut selected)}}
+        @search={{this.searchCountriesAsync}}
+        @selected={{this.selected}}
+        @onChange={{action (mut this.selected)}}
         @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
@@ -135,10 +135,10 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     this.noMatchesMessage = 'no matches homie';
     await render(hbs`
       <PowerSelectTypeahead
-        @search={{searchCountriesAsync}}
-        @selected={{selected}}
-        @noMatchesMessage={{noMatchesMessage}}
-        @onChange={{action (mut selected)}}
+        @search={{this.searchCountriesAsync}}
+        @selected={{this.selected}}
+        @noMatchesMessage={{this.noMatchesMessage}}
+        @onChange={{action (mut this.selected)}}
         @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
@@ -160,9 +160,9 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     };
     await render(hbs`
       <PowerSelectTypeahead
-        @search={{searchCountriesAsync}}
-        @selected={{selected}}
-        @onChange={{action (mut selected)}}
+        @search={{this.searchCountriesAsync}}
+        @selected={{this.selected}}
+        @onChange={{action (mut this.selected)}}
         @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
@@ -182,9 +182,9 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     };
     await render(hbs`
       <PowerSelectTypeahead
-        @search={{searchCountriesAsync}}
-        @selected={{selected}}
-        @onChange={{action (mut selected)}}
+        @search={{this.searchCountriesAsync}}
+        @selected={{this.selected}}
+        @onChange={{action (mut this.selected)}}
         @extra={{hash labelPath="name"}} as |country|>
         {{country.name}}
       </PowerSelectTypeahead>
