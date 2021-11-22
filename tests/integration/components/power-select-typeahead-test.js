@@ -195,4 +195,20 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     await typeInSearch('');
     assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
   });
+
+  // No longer valid due to the defaulting in ember-power-select here:
+  // https://github.com/cibernox/ember-power-select/pull/1288/files#diff-0b703d8c10bb63b1c66c49b19f314eb7570932db57cd09b0fd2d811799d962a9R44
+  // test('The dropdown doesnt have a "button" role', async function(assert) {
+  //   assert.expect(1);
+  //   this.numbers = numbers;
+  //   await render(hbs`
+  //     <PowerSelectTypeahead
+  //       @options={{numbers}}
+  //       @selected={{selected}}
+  //       @onChange={{action (mut selected)}} as |number|>
+  //       {{number}}
+  //     </PowerSelectTypeahead>
+  //   `);
+  //   assert.notOk(find('.ember-power-select-trigger').getAttribute('role'), 'The trigger does not have button role');
+  // });
 });
