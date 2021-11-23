@@ -1,7 +1,7 @@
 <input type="search"
   value={{this.text}}
   role="combobox"
-  id="ember-power-select-typeahead-input-{{this.select.uniqueId}}"
+  id="ember-power-select-typeahead-input-{{@select.uniqueId}}"
   class="ember-power-select-typeahead-input ember-power-select-search-input"
   autocomplete="off"
   autocorrect="off"
@@ -11,9 +11,9 @@
   oninput={{@onInput}}
   onfocus={{@onFocus}}
   onblur={{@onBlur}}
-  disabled={{this.select.disabled}}
+  disabled={{@select.disabled}}
   onkeydown={{action "handleKeydown"}}
   onmousedown={{action "stopPropagation"}}>
-{{#if this.select.loading}}
+{{#if @select.loading}}
   <span class="ember-power-select-typeahead-loading-indicator"></span>
 {{/if}}
