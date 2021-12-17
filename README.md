@@ -27,7 +27,7 @@ With simple strings:
 ```hsb
 <PowerSelectTypeahead @search={{action 'searchAsync'}} @selected={{selected}} @onChange={{action (mut selected)}} as |number|>
   {{number}}
-<PowerSelectTypeahead>
+</PowerSelectTypeahead>
 ```
 
 With complex objects:
