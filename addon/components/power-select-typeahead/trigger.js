@@ -18,8 +18,8 @@ export default Component.extend({
    */
   didReceiveAttrs() {
     this._super(...arguments);
-    let oldSelect = this.get('oldSelect');
-    let newSelect = this.set('oldSelect', this.get('select'));
+    let oldSelect = this.oldSelect;
+    let newSelect = this.set('oldSelect', this.select);
     if (!oldSelect) {
       return;
     }
@@ -28,7 +28,9 @@ export default Component.extend({
      * the select box.
      */
     if (oldSelect.isOpen && !newSelect.isOpen && newSelect.searchText) {
-      let input = document.querySelector(`#ember-power-select-typeahead-input-${newSelect.uniqueId}`);
+      let input = document.querySelector(
+        `#ember-power-select-typeahead-input-${newSelect.uniqueId}`
+      );
       let newText = this.getSelectedAsText();
       if (input.value !== newText) {
         input.value = newText;
@@ -74,23 +76,23 @@ export default Component.extend({
         e.stopPropagation();
         return;
       }
-      let isLetter = e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode === 32; // Keys 0-9, a-z or SPACE
+      let isLetter = (e.keyCode >= 48 && e.keyCode <= 90) || e.keyCode === 32; // Keys 0-9, a-z or SPACE
       // if isLetter, escape or enter, prevent parent handlers from being notified
       if (isLetter || [13, 27].indexOf(e.keyCode) > -1) {
-        let select = this.get('select');
+        let select = this.select;
         // open if loading msg configured
-        if (!select.isOpen && this.get('loadingMessage')) {
+        if (!select.isOpen && this.loadingMessage) {
           schedule('actions', null, select.actions.open);
         }
         e.stopPropagation();
       }
 
       // optional, passed from power-select
-      let onkeydown = this.get('onKeydown');
+      let onkeydown = this.onKeydown;
       if (onkeydown && onkeydown(e) === false) {
         return false;
       }
-    }
+    },
   },
 
   /**
@@ -113,5 +115,5 @@ export default Component.extend({
       value = '';
     }
     return value;
-  }
+  },
 });

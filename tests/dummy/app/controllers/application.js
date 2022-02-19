@@ -22,7 +22,7 @@ const numbers = [
   'seventeen',
   'eighteen',
   'nineteen',
-  'twenty'
+  'twenty',
 ];
 
 const users = [
@@ -35,7 +35,7 @@ const users = [
   { name: 'Kirill' },
   { name: 'Stuart' },
   { name: 'Jamie' },
-  { name: 'Matteo' }
+  { name: 'Matteo' },
 ];
 const extra = { labelPath: 'name' };
 
@@ -57,11 +57,11 @@ export default Controller.extend({
     },
 
     searchAsync(term) {
-      return new RSVP.Promise(function(resolve) {
+      return new RSVP.Promise(function (resolve) {
         if (term.length === 0) {
           resolve([]);
         } else {
-          later(function() {
+          later(function () {
             resolve(numbers.filter((num) => num.indexOf(term) > -1));
           }, 600);
         }
@@ -70,15 +70,15 @@ export default Controller.extend({
 
     searchUsersAsync(term) {
       // return users.filter(u => u.name.indexOf(term) > -1);
-      return new RSVP.Promise(function(resolve) {
+      return new RSVP.Promise(function (resolve) {
         if (term.length === 0) {
           resolve([]);
         } else {
-          later(function() {
+          later(function () {
             resolve(users.filter((u) => u.name.indexOf(term) > -1));
           }, 600);
         }
       });
-    }
-  }
+    },
+  },
 });

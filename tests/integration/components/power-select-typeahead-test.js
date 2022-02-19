@@ -3,14 +3,24 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
 import { later } from '@ember/runloop';
-import { click, find, findAll, render, settled, waitFor } from '@ember/test-helpers';
-import { typeInSearch, triggerKeydown } from 'ember-power-select/test-support/helpers';
+import {
+  click,
+  find,
+  findAll,
+  render,
+  settled,
+  waitFor,
+} from '@ember/test-helpers';
+import {
+  typeInSearch,
+  triggerKeydown,
+} from 'ember-power-select/test-support/helpers';
 import { numbers, countries } from '../constants';
 
-module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
+module('Integration | Component | <PowerSelectTypeahead>', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('It can select options when options are strings', async function(assert) {
+  test('It can select options when options are strings', async function (assert) {
     assert.expect(4);
     this.numbers = numbers;
     await render(hbs`
@@ -18,15 +28,25 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
         {{number}}
       </PowerSelectTypeahead>
     `);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed'
+    );
     await typeInSearch('tw');
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     await click(findAll('.ember-power-select-option')[1]);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-    assert.equal(find('.ember-power-select-search-input').value, 'twelve', 'The input contains the selected option');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed again'
+    );
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'twelve',
+      'The input contains the selected option'
+    );
   });
 
-  test('It can select options when options are objects', async function(assert) {
+  test('It can select options when options are objects', async function (assert) {
     assert.expect(4);
     this.countries = countries;
     await render(hbs`
@@ -34,15 +54,25 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
         {{country.name}}
       </PowerSelectTypeahead>
     `);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed'
+    );
     await typeInSearch('tat');
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     await click(findAll('.ember-power-select-option')[0]);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-    assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed again'
+    );
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'United States',
+      'The input contains the selected option'
+    );
   });
 
-  test('Removing a few characters and selecting the same option that is already selected updates the text of the input', async function(assert) {
+  test('Removing a few characters and selecting the same option that is already selected updates the text of the input', async function (assert) {
     assert.expect(5);
     this.countries = countries;
     this.selected = countries[2];
@@ -51,16 +81,30 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
         {{country.name}}
       </PowerSelectTypeahead>
     `);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed'
+    );
     await typeInSearch('Port');
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-    assert.equal(find('.ember-power-select-search-input').value, 'Port', 'The input contains the selected option');
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'Port',
+      'The input contains the selected option'
+    );
     await click(findAll('.ember-power-select-option')[0]);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-    assert.equal(find('.ember-power-select-search-input').value, 'Portugal', 'The input contains the selected option');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed again'
+    );
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'Portugal',
+      'The input contains the selected option'
+    );
   });
 
-  test('can search async with loading message', async function(assert) {
+  test('can search async with loading message', async function (assert) {
     assert.expect(6);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
@@ -83,17 +127,35 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     typeInSearch('Uni');
     triggerKeydown('.ember-power-select-search-input', 85);
     await waitFor('.ember-power-select-option--loading-message');
-    assert.equal(find('.ember-power-select-option--loading-message').textContent.trim(), this.loadingMessage, 'The loading message shows');
-    assert.ok(find('.ember-power-select-dropdown'), 'The component open while searching');
+    assert.equal(
+      find('.ember-power-select-option--loading-message').textContent.trim(),
+      this.loadingMessage,
+      'The loading message shows'
+    );
+    assert.ok(
+      find('.ember-power-select-dropdown'),
+      'The component open while searching'
+    );
     await settled();
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-    assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'Uni',
+      'The input contains the selected option'
+    );
     await click(findAll('.ember-power-select-option')[0]);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-    assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed again'
+    );
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'United States',
+      'The input contains the selected option'
+    );
   });
 
-  test('search async with no loading message', async function(assert) {
+  test('search async with no loading message', async function (assert) {
     assert.expect(6);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
@@ -113,17 +175,34 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     `);
     typeInSearch('Uni');
     triggerKeydown('.ember-power-select-search-input', 85);
-    assert.notOk(find('.ember-power-select-option--loading-message'), 'No loading message if not configured');
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed while searching');
+    assert.notOk(
+      find('.ember-power-select-option--loading-message'),
+      'No loading message if not configured'
+    );
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed while searching'
+    );
     await settled();
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
-    assert.equal(find('.ember-power-select-search-input').value, 'Uni', 'The input contains the selected option');
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'Uni',
+      'The input contains the selected option'
+    );
     await click(findAll('.ember-power-select-option')[0]);
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed again');
-    assert.equal(find('.ember-power-select-search-input').value, 'United States', 'The input contains the selected option');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed again'
+    );
+    assert.equal(
+      find('.ember-power-select-search-input').value,
+      'United States',
+      'The input contains the selected option'
+    );
   });
 
-  test('search async with noMatchesMessage', async function(assert) {
+  test('search async with noMatchesMessage', async function (assert) {
     assert.expect(1);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
@@ -146,10 +225,13 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     typeInSearch('Uniwatttt');
     triggerKeydown('.ember-power-select-search-input', 85);
     await settled();
-    assert.equal(find('.ember-power-select-option--no-matches-message').textContent.trim(), 'no matches homie');
+    assert.equal(
+      find('.ember-power-select-option--no-matches-message').textContent.trim(),
+      'no matches homie'
+    );
   });
 
-  test('search async without noMatchesMessage', async function(assert) {
+  test('search async without noMatchesMessage', async function (assert) {
     assert.expect(1);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
@@ -170,10 +252,13 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     typeInSearch('Uniwatttt');
     triggerKeydown('.ember-power-select-search-input', 85);
     await settled();
-    assert.notOk(find('.ember-power-select-option--no-matches-message'), 'noMatchesMessage is null by default');
+    assert.notOk(
+      find('.ember-power-select-option--no-matches-message'),
+      'noMatchesMessage is null by default'
+    );
   });
 
-  test('search async with no text will open and then close dropdown', async function(assert) {
+  test('search async with no text will open and then close dropdown', async function (assert) {
     assert.expect(2);
     this.searchCountriesAsync = () => {
       return new RSVP.Promise((resolve) => {
@@ -193,7 +278,10 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     await triggerKeydown('.ember-power-select-search-input', 85);
     assert.ok(find('.ember-power-select-dropdown'), 'The component is opened');
     await typeInSearch('');
-    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    assert.notOk(
+      find('.ember-power-select-dropdown'),
+      'The component is closed'
+    );
   });
 
   // No longer valid due to the defaulting in ember-power-select here:
