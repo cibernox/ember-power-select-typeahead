@@ -1,12 +1,12 @@
 <PowerSelect
-  @afterOptionsComponent={{@afterOptionsComponent}}
+  @afterOptionsComponent={{component @afterOptionsComponent}}
   @allowClear={{@allowClear}}
   @animationEnabled={{@animationEnabled}}
   @ariaDescribedBy={{@ariaDescribedBy}}
   @ariaInvalid={{@ariaInvalid}}
   @ariaLabel={{@ariaLabel}}
   @ariaLabelledBy={{@ariaLabelledBy}}
-  @beforeOptionsComponent={{this.beforeOptionsComponent}}
+  @beforeOptionsComponent={{component this.beforeOptionsComponent}}
   @buildSelection={{@buildSelection}}
   @closeOnSelect={{@closeOnSelect}}
   @defaultHighlighted={{@defaultHighlighted}}
@@ -14,7 +14,7 @@
   @disabled={{@disabled}}
   @dropdownClass={{this.concatenatedDropdownClasses}}
   @extra={{@extra}}
-  @groupComponent={{@groupComponent}}
+  @groupComponent={{component @groupComponent}}
   @horizontalPosition={{@horizontalPosition}}
   @initiallyOpened={{@initiallyOpened}}
   @loadingMessage={{this.loadingMessage}}
@@ -29,7 +29,7 @@
   @onKeydown={{action "onKeyDown"}}
   @onOpen={{@onOpen}}
   @options={{@options}}
-  @optionsComponent={{@optionsComponent}}
+  @optionsComponent={{component @optionsComponent}}
   @placeholder={{@placeholder}}
   @preventScroll={{@preventScroll}}
   @registerAPI={{@registerAPI}}
@@ -40,10 +40,10 @@
   @searchMessage={{@searchMessage}}
   @searchPlaceholder={{@searchPlaceholder}}
   @selected={{@selected}}
-  @selectedItemComponent={{@selectedItemComponent}}
+  @selectedItemComponent={{component @selectedItemComponent}}
   @tabindex={{this.tabindex}}
   @triggerClass={{this.concatenatedTriggerClasses}}
-  @triggerComponent={{this.triggerComponent}}
+  @triggerComponent={{component this.triggerComponent}}
   @triggerId={{@triggerId}}
   @triggerRole={{false}}
   @verticalPosition={{@verticalPosition}}
