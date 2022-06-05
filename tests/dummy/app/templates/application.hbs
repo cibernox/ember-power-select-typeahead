@@ -26,23 +26,23 @@
 
 <PowerSelectTypeahead
   @search={{action 'searchUsersAsync'}}
-  @selected={{user}}
-  @onChange={{action (mut user)}}
+  @selected={{this.user}}
+  @onChange={{action (mut this.user)}}
   @extra={{hash labelPath="name"}} as |user|>
   {{user.name}}
 </PowerSelectTypeahead>
 
 <p>
-  User is: {{user.name}}
+  User is: {{this.user.name}}
 </p>
 
 <h3>Typeahead with minimum search length set to 3 chars</h3>
 
 <PowerSelectTypeahead
   @search={{action 'searchUsersAsync'}}
-  @selected={{user2}}
+  @selected={{this.user2}}
   @onInput={{action "skipShortSearches"}}
-  @onChange={{action (mut user2)}}
+  @onChange={{action (mut this.user2)}}
   @extra={{hash labelPath="name"}} as |user|>
   {{user.name}}
 </PowerSelectTypeahead>
@@ -50,10 +50,10 @@
 <h3>Typeahead with non-async search</h3>
 
 <PowerSelectTypeahead
-  @selected={{user3}}
-  @options={{users}}
+  @selected={{this.user3}}
+  @options={{this.users}}
   @searchField="name"
-  @onChange={{action (mut user3)}}
+  @onChange={{action (mut this.user3)}}
   @extra={{hash labelPath="name"}} as |user|>
   {{user.name}}
 </PowerSelectTypeahead>
