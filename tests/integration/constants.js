@@ -18,7 +18,7 @@ export const numbers = [
   'seventeen',
   'eighteen',
   'nineteen',
-  'twenty'
+  'twenty',
 ];
 
 export const names = [
@@ -27,15 +27,15 @@ export const names = [
   'João',
   'Miguel',
   'Marta',
-  'Lisa'
+  'Lisa',
 ];
 
 export const countries = [
-  { name: 'United States',  code: 'US', population: 321853000 },
-  { name: 'Spain',          code: 'ES', population: 46439864 },
-  { name: 'Portugal',       code: 'PT', population: 10374822 },
-  { name: 'Russia',         code: 'RU', population: 146588880 },
-  { name: 'Latvia',         code: 'LV', population: 1978300 },
-  { name: 'Brazil',         code: 'BR', population: 204921000 },
-  { name: 'United Kingdom', code: 'GB', population: 64596752 }
+  { name: 'United States', code: 'US', population: 321853000 },
+  { name: 'Spain', code: 'ES', population: 46439864 },
+  { name: 'Portugal', code: 'PT', population: 10374822 },
+  { name: 'Russia', code: 'RU', population: 146588880 },
+  { name: 'Latvia', code: 'LV', population: 1978300 },
+  { name: 'Brazil', code: 'BR', population: 204921000 },
+  { name: 'United Kingdom', code: 'GB', population: 64596752 },
 ];

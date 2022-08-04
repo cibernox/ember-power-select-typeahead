@@ -13,18 +13,18 @@ export default Component.extend({
   onkeydown: () => {},
 
   // CPs
-  concatenatedTriggerClasses: computed('triggerClass', function() {
+  concatenatedTriggerClasses: computed('triggerClass', function () {
     let classes = ['ember-power-select-typeahead-trigger'];
-    let passedClass = this.get('triggerClass');
+    let passedClass = this.triggerClass;
     if (passedClass) {
       classes.push(passedClass);
     }
     return classes.join(' ');
   }),
 
-  concatenatedDropdownClasses: computed('dropdownClass', function() {
+  concatenatedDropdownClasses: computed('dropdownClass', function () {
     let classes = ['ember-power-select-typeahead-dropdown'];
-    let passedClass = this.get('dropdownClass');
+    let passedClass = this.dropdownClass;
     if (passedClass) {
       classes.push(passedClass);
     }
@@ -33,7 +33,7 @@ export default Component.extend({
 
   actions: {
     onKeyDown(select, e) {
-      let action = this.get('onkeydown');
+      let action = this.onkeydown;
 
       // if user passes `onkeydown` action
       if (action && action(select, e) === false) {
@@ -44,6 +44,6 @@ export default Component.extend({
           select.actions.choose(null);
         }
       }
-    }
-  }
+    },
+  },
 });
