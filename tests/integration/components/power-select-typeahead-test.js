@@ -26,6 +26,19 @@ module('Integration | Component | <PowerSelectTypeahead>', function(hooks) {
     assert.equal(find('.ember-power-select-search-input').value, 'twelve', 'The input contains the selected option');
   });
 
+  test('Show the initial value in input', async function(assert) {
+    assert.expect(2);
+    this.numbers = numbers;
+    this.selected = 'three';
+    await render(hbs`
+      <PowerSelectTypeahead @options={{this.numbers}} @selected={{this.selected}} @onChange={{action (mut this.selected)}} as |number|>
+        {{number}}
+      </PowerSelectTypeahead>
+    `);
+    assert.notOk(find('.ember-power-select-dropdown'), 'The component is closed');
+    assert.equal(find('.ember-power-select-search-input').value, 'three', 'The input contains the selected option');
+  });
+
   test('It can select options when options are objects', async function(assert) {
     assert.expect(4);
     this.countries = countries;
