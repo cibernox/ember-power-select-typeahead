@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -24,7 +28,7 @@ jobs:
           version: 8
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -38,6 +42,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -45,7 +53,7 @@ jobs:
           version: 8
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --no-lockfile
