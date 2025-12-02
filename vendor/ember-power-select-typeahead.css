@@ -1,0 +1,12 @@
+.ember-power-select-typeahead-trigger {
+  border: none;
+  border-radius: 0; }
+
+.ember-power-select-typeahead-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 1px solid #aaaaaa;
+  outline: none; }
+  .ember-power-select-typeahead-input :focus {
+    border: 1px solid #aaaaaa; }

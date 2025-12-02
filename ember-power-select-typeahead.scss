@@ -1,0 +1,18 @@
+@import 'ember-power-select/scss/variables.scss';
+
+.ember-power-select-typeahead-trigger {
+  border: none;
+  border-radius: 0;
+}
+
+.ember-power-select-typeahead-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: $ember-power-select-default-border;
+  outline: none;
+
+  & :focus {
+    border: $ember-power-select-default-focus-border;
+  }
+}
