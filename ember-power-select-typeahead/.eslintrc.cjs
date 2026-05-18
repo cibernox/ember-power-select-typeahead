@@ -6,8 +6,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    requireConfigFile: false,
     babelOptions: {
-      root: __dirname,
+      babelrc: false,
+      configFile: false,
+      plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
     },
   },
   plugins: ['ember', 'import'],

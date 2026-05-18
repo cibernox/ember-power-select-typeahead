@@ -1,6 +1,6 @@
 import { babel } from '@rollup/plugin-babel';
 import { Addon } from '@embroider/addon-dev/rollup';
-import styles from 'rollup-plugin-styles';
+import sass from 'rollup-plugin-sass';
 import path from 'path';
 
 const addon = new Addon({
@@ -9,7 +9,7 @@ const addon = new Addon({
 });
 
 export default [
-  // Compile scss file for js import
+  // Extract the compiled CSS to a sibling .css file
   {
     input: './_index.scss',
     output: {
@@ -17,9 +17,25 @@ export default [
       assetFileNames: '[name][extname]',
     },
     plugins: [
-      styles({
-        mode: ['extract', 'ember-power-select-typeahead.css'],
-        sass: {
+      sass({
+        options: {
+          includePaths: [path.resolve('node_modules')],
+        },
+        output: './vendor/ember-power-select-typeahead.css',
+      }),
+    ],
+  },
+  // Emit a JS shim that re-exports the compiled CSS as a string.
+  // The output file overwrites the (discardable) JS from the previous step.
+  {
+    input: './_index.scss',
+    output: {
+      file: './vendor/ember-power-select-typeahead.js',
+      assetFileNames: '[name][extname]',
+    },
+    plugins: [
+      sass({
+        options: {
           includePaths: [path.resolve('node_modules')],
         },
       }),

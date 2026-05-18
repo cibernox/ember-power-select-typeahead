@@ -2,7 +2,7 @@
 
 <h2 id="title">Welcome to Ember</h2>
 <p>
-  <input type="text" placeholder="Tab target">
+  <input type="text" placeholder="Tab target" />
 </p>
 
 {{!-- {{#power-select search=(action 'search') tabindex=-1 selected=selected onchange=(action (mut selected))
@@ -28,12 +28,15 @@
   @search={{this.searchUsersAsync}}
   @selected={{this.user}}
   @onChange={{fn (mut this.user)}}
-  @extra={{hash labelPath="name"}} as |user|>
+  @extra={{hash labelPath="name"}}
+  as |user|
+>
   {{this.user.name}}
 </PowerSelectTypeahead>
 
 <p>
-  User is: {{this.user.name}}
+  User is:
+  {{this.user.name}}
 </p>
 
 <h3>Typeahead with minimum search length set to 3 chars</h3>
@@ -43,7 +46,9 @@
   @selected={{this.user2}}
   @onInput={{this.skipShortSearches}}
   @onChange={{fn (mut this.user2)}}
-  @extra={{hash labelPath="name"}} as |user|>
+  @extra={{hash labelPath="name"}}
+  as |user|
+>
   {{this.user.name}}
 </PowerSelectTypeahead>
 
@@ -54,7 +59,9 @@
   @options={{this.users}}
   @searchField="name"
   @onChange={{fn (mut this.user3)}}
-  @extra={{hash labelPath="name"}} as |user|>
+  @extra={{hash labelPath="name"}}
+  as |user|
+>
   {{this.user.name}}
 </PowerSelectTypeahead>
 

@@ -11,12 +11,26 @@
     "start": "concurrently 'pnpm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
     "start:addon": "pnpm --filter ember-power-select-typeahead start --no-watch.clearScreen",
     "start:test-app": "pnpm --filter test-app start",
-    "test": "pnpm --filter '*' test",
-    "test:ember": "pnpm --filter '*' test:ember"
+    "test": "pnpm --filter test-app test",
+    "test:ember": "pnpm --filter test-app test:ember"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^1.1.0"
-  }
+  },
+  "pnpm": {
+    "overrides": {
+      "@ember/test-helpers": "^5.4.2",
+      "@glimmer/component": "^2.1.1",
+      "ember-source": "^5.0.0 || ^6.0.0"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@ember/test-helpers": "^5.0.0",
+        "@glimmer/component": "^2.0.0"
+      }
+    }
+  },
+  "packageManager": "pnpm@10.33.4"
 }
